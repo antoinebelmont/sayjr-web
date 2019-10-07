@@ -5,16 +5,16 @@ import { HashRouter } from 'react-router-dom';
 import './assets/styles/base.scss';
 
 import Main from './pages/Main';
-import configureStore from './config/configureStore';
 import { Provider } from 'react-redux';
+import store from 'stores';
 
-const store = configureStore();
+
 const rootElement = document.getElementById('root');
 
 
 const renderApp = Component => {
     ReactDOM.render(
-      <Provider store={store}>
+      <Provider store={store}> 
         <HashRouter>
           <Component />
         </HashRouter>
@@ -22,7 +22,6 @@ const renderApp = Component => {
       rootElement
     );
   };
-  
   renderApp(Main);
   
   if (module.hot) {
@@ -33,3 +32,4 @@ const renderApp = Component => {
   }
   
   registerServiceWorker();
+

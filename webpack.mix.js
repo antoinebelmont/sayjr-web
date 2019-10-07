@@ -19,7 +19,7 @@ mix.react('resources/js/app.js', 'public/js')
             'assets': path.resolve(__dirname, 'resources/js/assets'),
             'components': path.resolve(__dirname, 'resources/js/components'),
             'pages': path.resolve(__dirname, 'resources/js/pages'),
-            'reduces': path.resolve(__dirname, 'resources/js/reduces'),
+            'stores': path.resolve(__dirname, 'resources/js/stores'),
          }
       }
    });
