@@ -11,6 +11,30 @@ class Nav extends Component {
     let { location } = this.props;
     return (
       <ul className="nav">
+        <li className={this.isPathActive('/insurance') || this.state.insuranceMenuOpen ? 'active':null}>
+          <a onClick={() => this.setState({ insuranceMenuOpen: !this.state.insuranceMenuOpen })}
+            data-toggle="collapse">
+            <i className="pe-7s-plugin"></i>
+            <p>
+              Aseguradoras
+            <b className="caret"></b>
+            </p>
+          </a>
+          <Collapse in={this.state.insuranceMenuOpen}>
+            <div>
+              <ul className="nav">
+                <li className={this.isPathActive('/insurance/insurances') ? 'active' : null}>
+                  <Link to="/insurance/insurances">Aseguradoras</Link>
+                </li>
+                <li className={this.isPathActive('/insurance/coverages') ? 'active' : null}>
+                  <Link to="/insurance/coverages">Coverturas</Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        
+
         <li className={location.pathname === '/' ? 'active' : null}>
           <Link to="/">
             <i className="pe-7s-graph"></i>

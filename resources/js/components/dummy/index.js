@@ -1,5 +1,6 @@
 import React from "react"
-import { connect, bindActionCreators } from "redux"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 import {setEjemplo} from "stores/actions/ejemplo_actions"
 class Dummy extends React.Component {
 

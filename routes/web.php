@@ -12,10 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
     return view('home');
 });
 
+
 Auth::routes();
+Route::get('/login', function () { return view('home'); });
+
+
+// siempre dejar hasta abajo..
+Route::any('{query}', function () {
+    return view('home');
+})->where('query', '.*');

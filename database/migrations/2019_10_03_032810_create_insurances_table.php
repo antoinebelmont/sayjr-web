@@ -16,6 +16,7 @@ class CreateInsurancesTable extends Migration
         Schema::create('insurances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name",50);
+            $table->tinyInteger("status");
             $table->timestamps();
         });
     }

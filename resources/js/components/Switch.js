@@ -13,9 +13,9 @@ const SwitchControl = ({
       'switch-off': !value
     })}
       onClick={() => onChange(!value)}>
-      <span className="switch-left">{onText}</span>
+      <span className="switch-left">Activo</span>
       <label>&nbsp;</label>
-      <span className="switch-right">{offText}</span>
+      <span className="switch-right">Inactivo</span>
     </div>
   </div>
 );

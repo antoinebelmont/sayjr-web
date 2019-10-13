@@ -16,9 +16,9 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => $faker->name,
-                'email' => $faker->email,
+                'email' => '666.strigoi@gmail.com',
                 'phone' => '3311405492',
-                'password' => 'belmont',
+                'password' => bcrypt('belmont'),
                 'role_id' => 1
             ]
            ]);

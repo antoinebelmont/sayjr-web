@@ -50,6 +50,6 @@ const mapStateToProps = state => ({
   backgroundImage: state.ThemeOptions.backgroundImage
 });
 
-export default withRouter(
+  export default withRouter(
   connect(mapStateToProps)(SideBar)
 );

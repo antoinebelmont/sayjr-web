@@ -3,7 +3,13 @@ import { reducer as formReducer } from 'redux-form'
 import ThemeOptions from '../../reducers/ThemeOptions';
 import Layout from '../../reducers/Layout';
 import Auth from '../../reducers/Auth';
+import Login from './auth_reducer';
+import Example from './ejemplo_reducer';
+import InsurancesCoverages from './insurances_coverages';
 const rootReducer = combineReducers({
+    InsurancesCoverages,
+    Example,
+    Login,
     Auth,
     ThemeOptions,
     Layout,

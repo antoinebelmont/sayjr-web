@@ -19,6 +19,7 @@ class CreateInvoicesTable extends Migration
             $table->string('number',15);
             $table->bigInteger('user_id',false,true);
             $table->text('comments');
+            $table->smallInteger("status");
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
