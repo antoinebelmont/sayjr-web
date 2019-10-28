@@ -6,7 +6,9 @@ import Auth from '../../reducers/Auth';
 import Login from './auth_reducer';
 import Example from './ejemplo_reducer';
 import InsurancesCoverages from './insurances_coverages';
+import Service from './services_reducer';
 const rootReducer = combineReducers({
+    Service,
     InsurancesCoverages,
     Example,
     Login,

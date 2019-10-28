@@ -23,12 +23,12 @@ class CreateServicesTable extends Migration
             $table->bigInteger('insurance_id',false,true);
             $table->bigInteger('account_coverage_id',false,true);
             $table->bigInteger('user_contact_id',false,true);
-            $table->dateTime('schedule_date');
+            $table->dateTime('service_date');
             $table->float('latitude');
             $table->float('longitude');
             $table->string('client_name',150);
-            $table->bigInteger('user_assigned_id',false,true);
-            $table->smallInteger('status');
+            $table->bigInteger('user_assigned_id',false,true)->nullable();
+            $table->string('status',15)->default("pending");
             $table->timestamps();
 
             $table->foreign('type_id')->references('id')->on('types');

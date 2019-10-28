@@ -9,7 +9,8 @@ const TextInput = ({
   inputClassName,
   placeholder,
   helpText,
-  disabled
+  disabled,
+  required,
 }) => (
   <div>
     <input
@@ -19,7 +20,9 @@ const TextInput = ({
         error: !!error
       })}
       placeholder={placeholder}
-      disabled={disabled} />
+      disabled={disabled} 
+      required={required}
+      />
 
     { touched && error &&
       <label className="error" htmlFor={input.name}>{error}</label>

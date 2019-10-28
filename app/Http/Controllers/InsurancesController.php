@@ -71,7 +71,13 @@ class InsurancesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Insurance::updateOrCreate(
+            ['id'=>$request->id],
+            $request->except(['id'])
+        );
+        return response()->json([
+            "message" => "Actualizado"
+        ]);
     }
 
     /**

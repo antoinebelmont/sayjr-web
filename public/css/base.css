@@ -6397,3 +6397,7 @@ fieldset[disabled] .rbc-calendar .rbc-toolbar button.active {
   margin-bottom: 0;
 }
 
+.align-right-elements {
+  text-align: right;
+}
+

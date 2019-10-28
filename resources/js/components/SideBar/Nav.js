@@ -27,8 +27,33 @@ class Nav extends Component {
                   <Link to="/insurance/insurances">Aseguradoras</Link>
                 </li>
                 <li className={this.isPathActive('/insurance/coverages') ? 'active' : null}>
-                  <Link to="/insurance/coverages">Coverturas</Link>
+                  <Link to="/insurance/coverages">Coberturas</Link>
                 </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        <li className={this.isPathActive('/service') || this.state.serviceMenuOpen ? 'active':null}>
+          <a onClick={() => this.setState({ serviceMenuOpen: !this.state.serviceMenuOpen })}
+            data-toggle="collapse">
+            <i className="pe-7s-plugin"></i>
+            <p>
+              Servicios
+            <b className="caret"></b>
+            </p>
+          </a>
+          <Collapse in={this.state.serviceMenuOpen}>
+            <div>
+              <ul className="nav">
+                <li className={this.isPathActive('/service/create') ? 'active' : null}>
+                  <Link to="/service/create">Crear Servicio</Link>
+                </li>
+                <li className={this.isPathActive('/service/list') ? 'active' : null}>
+                  <Link to="/service/list">Lista de servicios</Link>
+                </li>
+                {/* <li className={this.isPathActive('/insurance/coverages') ? 'active' : null}>
+                  <Link to="/insurance/coverages">Coberturas</Link>
+                </li> */}
               </ul>
             </div>
           </Collapse>

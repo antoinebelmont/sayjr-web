@@ -18,6 +18,7 @@ class CreateAccountCoveragesTable extends Migration
             $table->string("bank",50);
             $table->float("coverage",12,2);
             $table->bigInteger("insurance_id",false,true);
+            $table->smallInteger("status")->default(1);
             $table->timestamps();
 
             $table->foreign('insurance_id')

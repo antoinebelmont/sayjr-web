@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import generateData from "pages/Tables/generateData";
 import Switch from "components/Switch";
 import { bindActionCreators } from "redux";
-import { getInsurances } from 'stores/actions/insurance_coverages_actions';
+import { getInsurances,changeInsuranceStatus } from 'stores/actions/insurance_coverages_actions';
 import {connect} from 'react-redux';
 
 class InsuranceList extends Component {
 
     state = {
-        items: []
+        items: [],
+        itemsperpage:5,
+        nocolumns:0
     };
 
     componentDidMount(){
@@ -22,14 +23,17 @@ class InsuranceList extends Component {
     }
 
     toggleActive = itemId => {
+        var status;
         this.setState({
             items: this.state.items.map(item => {
                 if (item.id === itemId) {
                     item.status = !item.status;
+                    status = item.status;
                 }
                 return item;
             })
         });
+        this.props.changeInsuranceStatus({id:itemId,status:status});
     };
 
     render() {
@@ -39,15 +43,6 @@ class InsuranceList extends Component {
                 <div className="header">
                     <h4 className="title">
                         Aseguradoras
-                        <button
-                            type="button"
-                            className="btn btn-wd btn-success "
-                        >
-                            <span className="btn-label">
-                                <i className="fa fa-check"></i>
-                            </span>{" "}
-                            Success
-                        </button>
                     </h4>
                 </div>
                 <div className="content table-responsive table-full-width">
@@ -59,8 +54,14 @@ class InsuranceList extends Component {
                                 <th>Estatus</th>
                             </tr>
                         </thead>
+                        {/* <TablePagination
+                            itemsperpage={this.state.itemsperpage}
+                            nocolumns={this.state.nocolumns}
+                            items={this.state.items}
+                            pagesspan={4}
+                        /> */}
                         <tbody>
-                            {this.state.items.map(item => (
+                            {items.map(item => (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
@@ -87,7 +88,7 @@ function mapStateToProps(state){
 }
 
 function mapActionsToProps(dispatch){
-    return bindActionCreators({getInsurances},dispatch)
+    return bindActionCreators({getInsurances,changeInsuranceStatus},dispatch)
 }
 
 export default connect(mapStateToProps,mapActionsToProps)(InsuranceList);
