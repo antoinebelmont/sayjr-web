@@ -4,7 +4,8 @@ import {
     UPDATE_ACCOUNT_COVERAGES,
     SERVICE_LIST,
     GET_SERVICE,
-    GET_SERVICE_DETAIL
+    GET_SERVICE_DETAIL,CREATE_COMMENT,
+    GET_SERVICE_COMMENTS
 } from "../types";
 import axios from "axios";
 
@@ -121,6 +122,45 @@ export function getServiceDetail(serviceId) {
 
     return {
         type: GET_SERVICE_DETAIL,
+        payload: request
+    };
+}
+
+export function getServiceComments(serviceId) {
+    const request = axios({
+        url: `/api/services/comments/${serviceId}`,
+        method: "GET"
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: GET_SERVICE_COMMENTS,
+        payload: request
+    };
+}
+
+export function createComment(comment,service_id) {
+    let url = "/api/services/comment";
+    let method = 'POST';
+    const request = axios({
+        url,
+        method,
+        data: {comment,service_id}
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: CREATE_COMMENT,
         payload: request
     };
 }

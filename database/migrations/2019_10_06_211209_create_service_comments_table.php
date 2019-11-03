@@ -16,10 +16,12 @@ class CreateServiceCommentsTable extends Migration
         Schema::create('service_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id',false,true);
+            $table->bigInteger('service_id',false,true);
             $table->text('comment');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('service_id')->references('id')->on('services');
         });
     }
 

@@ -2,13 +2,21 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { getServiceDetail } from "stores/actions/services_actions";
-import GoogleMap from "pages/MapsPage/GoogleMap";
+import {
+    getServiceDetail,
+    createComment,
+    getServiceComments
+} from "stores/actions/services_actions";
+import DetailCard from "./elements/DetailCard";
+import { Tabs, Tab } from "react-bootstrap";
+import CommentForm from "./elements/CommentForm";
+import CommentsList from './elements/CommentsList';
 
 class CreateForm extends Component {
     state = {
-        service: {}
+        service: {},
+        comment: "",
+        comments:[]
     };
     componentDidMount() {
         let ctx = this;
@@ -18,126 +26,92 @@ class CreateForm extends Component {
                     service: { ...action.payload.service }
                 });
             }
-            console.log(ctx.state.service);
+        });
+        this.props.getServiceComments(this.props.match.params.id).then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    comments: action.payload.comments 
+                });
+                console.log(ctx.state.comments)
+            }
         });
     }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props
+            .createComment(this.state.comment, this.state.service.id)
+            .then(action => {
+                if (action.payload.status === 200) {
+                    console.log(action.payload.comments);
+                    ctx.setState({
+                        comments: { ...action.payload.comments }
+                    });
+                }
+            });
+    };
+    onInputChange = e => {
+        this.setState({
+            comment: e.target.value
+        });
+    };
     render() {
         let service = this.state.service;
         return (
-            <div className="card card-plain">
-                <div className="header">
-                    <h4 className="title">Detalle de servicio
-                    
-                    </h4>
-
-                    <div className="category align-right-elements">
-                        <div className="content buttons-with-margin">
-                            <a className="btn btn-default btn-fill btn-wd" href={`/service/edit/${service.id}`}>Editar</a>
-                            <button className="btn btn-primary btn-fill btn-wd">Comentar</button>
-                            <button className="btn btn-info btn-fill btn-wd">Facturar</button>
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="card">
+                        <div className="header">
+                            <h4 className="title">Tabs &amp; Icons</h4>
+                            <p className="category">
+                                Tabs with icons and full width
+                            </p>
+                        </div>
+                        <div className="content content-full-width">
+                            <Tabs defaultActiveKey={1} id="tab-with-icons">
+                                <Tab
+                                    eventKey={1}
+                                    title={
+                                        <span>
+                                            <i className="fa fa-info"></i> Info
+                                        </span>
+                                    }
+                                >
+                                    <DetailCard service={service} />
+                                </Tab>
+                                <Tab
+                                    eventKey={2}
+                                    title={
+                                        <span>
+                                            <i className="fa pe-7s-chat"></i>{" "}
+                                            Comentarios
+                                        </span>
+                                    }
+                                >
+                                    <CommentForm
+                                        handleSubmit={this.handleSubmit}
+                                        onInputChange={this.onInputChange}
+                                    />
+                                    <CommentsList comments={this.state.comments} />
+                                    
+                                </Tab>
+                                <Tab
+                                    eventKey={3}
+                                    title={
+                                        <span>
+                                            <i className="fa fa-cube"></i> Style
+                                        </span>
+                                    }
+                                >
+                                    Explore a wide variety of styles,
+                                    personalise your finishes, and let us design
+                                    the perfect home for you. It's what we do
+                                    best and you can see proof in the products
+                                    and reviews below.
+                                </Tab>
+                            </Tabs>
                         </div>
                     </div>
-                </div>
-                <div className="content table-responsive table-full-width">
-                    <table className="table table-hover">
-                        {/* <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Salary</th>
-            <th>Country</th>
-            <th>City</th>
-          </tr>
-        </thead> */}
-                        <tbody>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Servicio
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.title}
-                                </td>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Cliente
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.client_name}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Aseguradora
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.insurance}
-                                </td>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Cobertura
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.account}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">Tipo</td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.service_type}
-                                </td>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Reporte
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.description}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Primer Contacto
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.first_contact_date}
-                                </td>
-                                <td className="info col-sm-6 col-lg-3">Cita</td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.service_date}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Recibido por
-                                </td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.receptor}
-                                </td>
-                                <td className="info col-sm-6 col-lg-3">Técnico asignado</td>
-                                <td className="col-sm-6 col-lg-3">
-                                    {service.attendant}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="info col-sm-6 col-lg-3">
-                                    Dirección
-                                </td>
-                                <td className="col-sm-6 col-lg-3" colSpan="3">
-                                    {service.address}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    className="info col-sm-6 col-lg-3"
-                                    colSpan="4"
-                                >
-                                    <GoogleMap
-                                        handleDrag={() => {}}
-                                        lat={service.lat}
-                                        lon={service.lon}
-                                        zoom={18}
-                                        draggable={false}
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         );
@@ -148,7 +122,7 @@ function mapStateToProps(state) {
 }
 
 function mapActionsToprops(dispatch) {
-    return bindActionCreators({ getServiceDetail }, dispatch);
+    return bindActionCreators({ getServiceDetail, createComment,getServiceComments }, dispatch);
 }
 export default withRouter(
     connect(

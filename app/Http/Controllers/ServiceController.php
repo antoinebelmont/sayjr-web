@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\AccountCoverage;
 use App\Insurance;
 use App\Service;
+use App\ServiceComments;
 use App\Type;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
@@ -30,6 +32,17 @@ class ServiceController extends Controller
                 ]
             ]
         );
+    }
+
+    public function createComment(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        ServiceComments::create($data);
+        return response()->json(['comments' => ServiceComments::where('service_id',$data['service_id'])->get()]) ;
+    }
+
+    public function getComments($serviceId){
+        return response()->json(['comments' => ServiceComments::where('service_id',$serviceId)->get()->toArray()]) ;
     }
 
     public function getAccountCoverages(Request $request)
