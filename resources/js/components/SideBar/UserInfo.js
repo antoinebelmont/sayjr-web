@@ -15,12 +15,12 @@ class UserInfo extends Component {
     return (
       <div className="user-wrapper">
         <div className="user">
-          <img src={user.image} alt={user.name} className="photo" />
+          {/* <img src={user.image} alt={user.name} className="photo" /> */}
           <div className="userinfo">
             <div className="username">
               {user.name}
             </div>
-            <div className="title">Admin</div>
+            {/* <div className="title">Administrativo</div> */}
           </div>
           <span
             onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}

@@ -2,7 +2,7 @@ import React from 'react';
 
 const validate = values => {};
 
-const CommentForm = ({handleSubmit,onInputChange}) => (
+const CommentForm = ({handleSubmit,onInputChange,comment}) => (
     <div className="row">
         <div className='col-md-3'></div>
         <div className="col-md-6">
@@ -17,6 +17,7 @@ const CommentForm = ({handleSubmit,onInputChange}) => (
                             <textarea
                                     className={"form-control"}
                                     name="description"
+                                    id="commentForm"
                                     required={true}
                                     onKeyUp={onInputChange}
                                 />

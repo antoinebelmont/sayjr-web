@@ -1,72 +1,129 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Collapse } from 'react-bootstrap';
-
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { Collapse } from "react-bootstrap";
 
 class Nav extends Component {
+    state = {};
 
-  state = {};
+    render() {
+        let { location } = this.props;
+        return (
+            <ul className="nav">
+                <li className={location.pathname === "/" ? "active" : null}>
+                    <Link to="/">
+                        <i className="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </Link>
+                </li>
+                <li
+                    className={
+                        this.isPathActive("/service") ||
+                        this.state.serviceMenuOpen
+                            ? "active"
+                            : null
+                    }
+                >
+                    <a
+                        onClick={() =>
+                            this.setState({
+                                serviceMenuOpen: !this.state.serviceMenuOpen
+                            })
+                        }
+                        data-toggle="collapse"
+                    >
+                        <i className="pe-7s-plugin"></i>
+                        <p>
+                            Servicios
+                            <b className="caret"></b>
+                        </p>
+                    </a>
+                    <Collapse in={this.state.serviceMenuOpen}>
+                        <div>
+                            <ul className="nav">
+                                <li
+                                    className={
+                                        this.isPathActive("/service/create")
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/service/create">
+                                        Crear Servicio
+                                    </Link>
+                                </li>
+                                <li
+                                    className={
+                                        this.isPathActive("/service/list")
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/service/list">
+                                        Lista de servicios
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </Collapse>
+                </li>
 
-  render() {
-    let { location } = this.props;
-    return (
-      <ul className="nav">
-        <li className={this.isPathActive('/insurance') || this.state.insuranceMenuOpen ? 'active':null}>
-          <a onClick={() => this.setState({ insuranceMenuOpen: !this.state.insuranceMenuOpen })}
-            data-toggle="collapse">
-            <i className="pe-7s-plugin"></i>
-            <p>
-              Aseguradoras
-            <b className="caret"></b>
-            </p>
-          </a>
-          <Collapse in={this.state.insuranceMenuOpen}>
-            <div>
-              <ul className="nav">
-                <li className={this.isPathActive('/insurance/insurances') ? 'active' : null}>
-                  <Link to="/insurance/insurances">Aseguradoras</Link>
+                <li
+                    className={
+                        this.isPathActive("/insurance") ||
+                        this.state.insuranceMenuOpen
+                            ? "active"
+                            : null
+                    }
+                >
+                    <a
+                        onClick={() =>
+                            this.setState({
+                                insuranceMenuOpen: !this.state.insuranceMenuOpen
+                            })
+                        }
+                        data-toggle="collapse"
+                    >
+                        <i className="pe-7s-plugin"></i>
+                        <p>
+                            Aseguradoras
+                            <b className="caret"></b>
+                        </p>
+                    </a>
+                    <Collapse in={this.state.insuranceMenuOpen}>
+                        <div>
+                            <ul className="nav">
+                                <li
+                                    className={
+                                        this.isPathActive(
+                                            "/insurance/insurances"
+                                        )
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/insurance/insurances">
+                                        Aseguradoras
+                                    </Link>
+                                </li>
+                                <li
+                                    className={
+                                        this.isPathActive(
+                                            "/insurance/coverages"
+                                        )
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/insurance/coverages">
+                                        Coberturas
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </Collapse>
                 </li>
-                <li className={this.isPathActive('/insurance/coverages') ? 'active' : null}>
-                  <Link to="/insurance/coverages">Coberturas</Link>
-                </li>
-              </ul>
-            </div>
-          </Collapse>
-        </li>
-        <li className={this.isPathActive('/service') || this.state.serviceMenuOpen ? 'active':null}>
-          <a onClick={() => this.setState({ serviceMenuOpen: !this.state.serviceMenuOpen })}
-            data-toggle="collapse">
-            <i className="pe-7s-plugin"></i>
-            <p>
-              Servicios
-            <b className="caret"></b>
-            </p>
-          </a>
-          <Collapse in={this.state.serviceMenuOpen}>
-            <div>
-              <ul className="nav">
-                <li className={this.isPathActive('/service/create') ? 'active' : null}>
-                  <Link to="/service/create">Crear Servicio</Link>
-                </li>
-                <li className={this.isPathActive('/service/list') ? 'active' : null}>
-                  <Link to="/service/list">Lista de servicios</Link>
-                </li>
-                {/* <li className={this.isPathActive('/insurance/coverages') ? 'active' : null}>
-                  <Link to="/insurance/coverages">Coberturas</Link>
-                </li> */}
-              </ul>
-            </div>
-          </Collapse>
-        </li>
-        
 
-        <li className={location.pathname === '/' ? 'active' : null}>
-          <Link to="/">
-            <i className="pe-7s-graph"></i>
-            <p>Dashboard</p>
-          </Link>
-        </li>
-        <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
+                {/* <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
             data-toggle="collapse">
             <i className="pe-7s-plugin"></i>
@@ -174,14 +231,14 @@ class Nav extends Component {
             <i className="pe-7s-date"></i>
             <p>Calendar</p>
           </Link>
-        </li>
-      </ul>
-    );
-  }
+        </li> */}
+            </ul>
+        );
+    }
 
-  isPathActive(path) {
-    return this.props.location.pathname.startsWith(path);
-  }
+    isPathActive(path) {
+        return this.props.location.pathname.startsWith(path);
+    }
 }
 
 export default withRouter(Nav);

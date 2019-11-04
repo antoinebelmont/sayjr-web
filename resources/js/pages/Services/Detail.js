@@ -39,14 +39,18 @@ class CreateForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        let ctx  = this;
         this.props
             .createComment(this.state.comment, this.state.service.id)
             .then(action => {
                 if (action.payload.status === 200) {
                     console.log(action.payload.comments);
                     ctx.setState({
-                        comments: { ...action.payload.comments }
+                        comments:  action.payload.comments,
+                        comment: ""
                     });
+                    // e.target.value = '';
+                    document.getElementById('commentForm').value = '';
                 }
             });
     };

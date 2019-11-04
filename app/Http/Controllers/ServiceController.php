@@ -38,11 +38,11 @@ class ServiceController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         ServiceComments::create($data);
-        return response()->json(['comments' => ServiceComments::where('service_id',$data['service_id'])->get()]) ;
+        return response()->json(['comments' => ServiceComments::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
     }
 
     public function getComments($serviceId){
-        return response()->json(['comments' => ServiceComments::where('service_id',$serviceId)->get()->toArray()]) ;
+        return response()->json(['comments' => ServiceComments::where('service_id',$serviceId)->orderBy('id','desc')->get()->toArray()]) ;
     }
 
     public function getAccountCoverages(Request $request)
