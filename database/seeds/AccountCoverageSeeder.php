@@ -19,7 +19,7 @@ class AccountCoverageSeeder extends Seeder
                 [
                     "bank" => $faker->name(),
                     "coverage" => $faker->randomFloat(2),
-                    "insurance_id" => $this->getInsuranceId()
+                    "insurance_id" => 1
                 ]
             ]);
         }
