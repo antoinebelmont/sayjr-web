@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('closing_number',15);
+            $table->bigInteger('service_id',false,true);
             $table->string('number',15);
             $table->bigInteger('user_id',false,true);
             $table->text('comments');
@@ -23,6 +24,7 @@ class CreateInvoicesTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('service_id')->references('id')->on('services');
         });
     }
 

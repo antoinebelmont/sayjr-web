@@ -5,21 +5,31 @@ import { withRouter } from "react-router-dom";
 import {
     getServiceDetail,
     createComment,
-    getServiceComments
+    getServiceComments,
+    getCatalogs
 } from "stores/actions/services_actions";
 import DetailCard from "./elements/DetailCard";
 import { Tabs, Tab } from "react-bootstrap";
 import CommentForm from "./elements/CommentForm";
 import CommentsList from './elements/CommentsList';
+import ExternalPaymentForm from './elements/ExternalPaymentForm';
 
 class CreateForm extends Component {
     state = {
         service: {},
         comment: "",
-        comments:[]
+        comments:[],
+        users: []
     };
     componentDidMount() {
-        let ctx = this;
+        const ctx = this;
+        this.props.getCatalogs().then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    ...action.payload
+                });
+            }
+        });
         this.props.getServiceDetail(this.props.match.params.id).then(action => {
             if (action.payload.status === 200) {
                 ctx.setState({
@@ -35,6 +45,18 @@ class CreateForm extends Component {
                 console.log(ctx.state.comments)
             }
         });
+    }
+
+    handlePaymentSubmit = e =>{
+        e.preventDefault();
+        console.log('form enviado');
+    }
+
+    onPaymentInputChange = e => {
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+        console.log(this.state);
     }
 
     handleSubmit = e => {
@@ -59,6 +81,8 @@ class CreateForm extends Component {
             comment: e.target.value
         });
     };
+
+
     render() {
         let service = this.state.service;
         return (
@@ -107,11 +131,11 @@ class CreateForm extends Component {
                                         </span>
                                     }
                                 >
-                                    Explore a wide variety of styles,
-                                    personalise your finishes, and let us design
-                                    the perfect home for you. It's what we do
-                                    best and you can see proof in the products
-                                    and reviews below.
+                                    <ExternalPaymentForm 
+                                        handleSubmit={this.handlePaymentSubmit}
+                                        onInputChange={this.onPaymentInputChange}
+                                        users={this.state.users}
+                                    />
                                 </Tab>
                             </Tabs>
                         </div>
@@ -126,7 +150,8 @@ function mapStateToProps(state) {
 }
 
 function mapActionsToprops(dispatch) {
-    return bindActionCreators({ getServiceDetail, createComment,getServiceComments }, dispatch);
+    return bindActionCreators({ 
+        getCatalogs,getServiceDetail, createComment,getServiceComments }, dispatch);
 }
 export default withRouter(
     connect(
