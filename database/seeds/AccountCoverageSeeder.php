@@ -26,6 +26,6 @@ class AccountCoverageSeeder extends Seeder
     }
 
     private function getInsuranceId(){
-        return rand(1,Insurance::all()->count());
+        return rand(1,Insurance::all()->count()-1);
     }
 }
