@@ -5,7 +5,7 @@ import DatetimePicker from "react-datetime-picker";
 
 const validate = values => {};
 
-const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users}) => (
+const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users,pay_date}) => (
     <div className="row">
         <div className='col-md-3'></div>
         <div className="col-md-6">
@@ -22,24 +22,65 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users})
                             </label>
                             <div className="col-sm-9">
                                 <DatetimePicker
-                                    name="first_contact_date"
+                                    name="pay_date"
+                                    value={pay_date}
                                     onChange={calendarChanged}
+                                    required={true}
                                 />
                             </div>
                     </div>
 
                         <div className="form-group">
                             <label className="col-sm-3 control-label">
-                                Recibe servicio
+                                Monto
+                            </label>
+                            <div className="col-sm-9">
+                                <Field
+                                    type="number"
+                                    name="amount"
+                                    required={true}
+                                    input={{
+                                        name: "amount",
+                                        step:".01",
+                                        onChange: onInputChange
+                                    }}
+                                    options={users}
+                                    component={renderField}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="col-sm-3 control-label">
+                                Recibe pago
                             </label>
                             <div className="col-sm-9">
                                 <Field
                                     type="select"
-                                    name="user_contact_id"
+                                    name="receiver_id"
                                     required={true}
                                     input={{
-                                        name: "user_contact_id",
-                                        onChange: e =>onInputChange
+                                        name: "receiver_id",
+                                        onChange: onInputChange
+                                    }}
+                                    options={users}
+                                    component={renderField}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="col-sm-3 control-label">
+                                Autoriza
+                            </label>
+                            <div className="col-sm-9">
+                                <Field
+                                    type="select"
+                                    name="authorized_by"
+                                    required={true}
+                                    input={{
+                                        name: "authorized_by",
+                                        onChange: onInputChange
                                     }}
                                     options={users}
                                     component={renderField}
@@ -47,8 +88,8 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users})
                             </div>
                         </div>
                         <div className="form-group">
+                                <label className="col-sm-3 control-label">Comentarios</label>
                             <div className="col-sm-9">
-                                <label>Comentarios</label>
                             <textarea
                                     className={"form-control"}
                                     name="paymentComment"

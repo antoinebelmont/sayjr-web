@@ -6,18 +6,26 @@ import {
     GET_SERVICE,
     GET_SERVICE_DETAIL,
     CREATE_COMMENT,
-    GET_SERVICE_COMMENTS
+    GET_SERVICE_COMMENTS,
+    CREATE_PAYMENT,
+    GET_SERVICE_PAYMENTS,
+    GET_TRACKING
 } from "../types";
 
 const serviceState = {
     catalogs: [],
     services: [],
-    comments:[]
+    comments:[],
+    payments:[]
 };
 
 export default (state = serviceState, action) => {
     let _state = state;
     switch (action.type) {
+        case GET_TRACKING:{
+            _state.tracking = action.payload.tracking;
+            return _state;
+        }
         case SERVICE_CATALOGS: {
             _state.catalogs = action.payload.catalogs;
             return _state;
@@ -38,6 +46,10 @@ export default (state = serviceState, action) => {
             _state.comments = action.payload.comments;
             return _state;
         }
+        case CREATE_PAYMENT: {
+            _state.payments = action.payload.payments;
+            return _state;
+        }
         case GET_SERVICE: {
             _state.service = action.payload;
             return _state;
@@ -48,6 +60,10 @@ export default (state = serviceState, action) => {
         }
         case GET_SERVICE_COMMENTS: {
             _state.comments = action.payload.comments;
+            return _state;
+        }
+        case GET_SERVICE_PAYMENTS: {
+            _state.payments = action.payload.payments;
             return _state;
         }
         default:

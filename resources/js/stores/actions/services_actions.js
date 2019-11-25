@@ -5,9 +5,29 @@ import {
     SERVICE_LIST,
     GET_SERVICE,
     GET_SERVICE_DETAIL,CREATE_COMMENT,
-    GET_SERVICE_COMMENTS
+    GET_SERVICE_COMMENTS,
+    CREATE_PAYMENT,
+    GET_SERVICE_PAYMENTS,
+    GET_TRACKING
 } from "../types";
+
 import axios from "axios";
+
+export function getTracking(){
+    const request = axios({
+        url: '/api/services/tracking',
+        method:'GET'
+    }).then(({data})=>{
+        return {...data,status:200}
+    }).catch(({response}) => {
+        console.error(response)
+    })
+
+    return {
+        type: GET_TRACKING,
+        payload: request
+    }
+}
 
 export function getCatalogs() {
     const request = axios({
@@ -144,6 +164,24 @@ export function getServiceComments(serviceId) {
     };
 }
 
+export function getServiceExtraPayments(serviceId) {
+    const request = axios({
+        url: `/api/services/payments/${serviceId}`,
+        method: "GET"
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: GET_SERVICE_PAYMENTS,
+        payload: request
+    };
+}
+
 export function createComment(comment,service_id) {
     let url = "/api/services/comment";
     let method = 'POST';
@@ -161,6 +199,27 @@ export function createComment(comment,service_id) {
 
     return {
         type: CREATE_COMMENT,
+        payload: request
+    };
+}
+
+export function createPayment(data) {
+    let url = "/api/services/payment";
+    let method = 'POST';
+    const request = axios({
+        url,
+        method,
+        data
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: CREATE_PAYMENT,
         payload: request
     };
 }

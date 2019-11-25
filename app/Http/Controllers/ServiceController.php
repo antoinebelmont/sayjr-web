@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AccountCoverage;
+use App\ExtraPay;
 use App\Insurance;
 use App\Service;
 use App\ServiceComments;
@@ -14,6 +15,16 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
+
+    public function getTRacking(){
+        return response()->json([
+            'tracking'=>[
+                'pending' => $this->formatServiceList(Service::where('status','pending')->get()),
+                'appointed' => $this->formatServiceList(Service::where('status','appointed')->get()),
+                'attended' => $this->formatServiceList(Service::where('status','attended')->get())
+            ]
+        ]);
+    }
     public function getCatalogs()
     {
         return response()->json(
@@ -41,8 +52,20 @@ class ServiceController extends Controller
         return response()->json(['comments' => ServiceComments::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
     }
 
+    public function createPayment(Request $request){
+        $data = $request->all();
+        $data['created_id'] = Auth::user()->id;
+        $data['pay_date'] =\Carbon\Carbon::parse($data['pay_date'])->setTimezone('GMT-6');
+        ExtraPay::create($data);
+        return response()->json(['payments' => ExtraPay::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
+    }
+
     public function getComments($serviceId){
         return response()->json(['comments' => ServiceComments::where('service_id',$serviceId)->orderBy('id','desc')->get()->toArray()]) ;
+    }
+
+    public function getPayments($serviceId){
+        return response()->json(['payments' => ExtraPay::where('service_id',$serviceId)->orderBy('id','desc')->get()->toArray()]) ;
     }
 
     public function getAccountCoverages(Request $request)
@@ -65,10 +88,11 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function formatServiceList()
+    public function formatServiceList($serviceList = null)
     {
+        $serviceList = empty($serviceList)?Service::all():$serviceList;
         $services = [];
-        foreach (Service::all() as $service) {
+        foreach ($serviceList as $service) {
             $services[] = [
                 'id' => $service->id,
                 'title' => $service->title,
@@ -77,6 +101,7 @@ class ServiceController extends Controller
                 'first_contact_date' => $service->first_contact,
                 'service_date' => $service->first_contact,
                 'attendant' => $service->attendant_name,
+                'receptor' => $service->receptor_name
             ];
         }
         return $services;

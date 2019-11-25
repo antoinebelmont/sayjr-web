@@ -6,12 +6,15 @@ import {
     getServiceDetail,
     createComment,
     getServiceComments,
-    getCatalogs
+    getCatalogs,
+    createPayment,
+    getServiceExtraPayments
 } from "stores/actions/services_actions";
 import DetailCard from "./elements/DetailCard";
 import { Tabs, Tab } from "react-bootstrap";
 import CommentForm from "./elements/CommentForm";
 import CommentsList from './elements/CommentsList';
+import PaymentsList from './elements/PaymentsList';
 import ExternalPaymentForm from './elements/ExternalPaymentForm';
 
 class CreateForm extends Component {
@@ -19,7 +22,13 @@ class CreateForm extends Component {
         service: {},
         comment: "",
         comments:[],
-        users: []
+        users: [],
+        serviceId:this.props.match.params.id,
+        pay_date: new Date(),
+        payments:[]
+    };
+    calendarChanged = date => {
+        this.setState({ pay_date: date});
     };
     componentDidMount() {
         const ctx = this;
@@ -37,26 +46,48 @@ class CreateForm extends Component {
                 });
             }
         });
+        this.props.getServiceExtraPayments(this.props.match.params.id).then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    payments: action.payload.payments 
+                });
+            }
+        });
         this.props.getServiceComments(this.props.match.params.id).then(action => {
             if (action.payload.status === 200) {
                 ctx.setState({
                     comments: action.payload.comments 
                 });
-                console.log(ctx.state.comments)
             }
         });
     }
 
     handlePaymentSubmit = e =>{
         e.preventDefault();
-        console.log('form enviado');
+        let ctx = this;
+        let data = {
+            service_id:this.state.serviceId,
+            pay_date:this.state.pay_date,
+            authorized_by:this.state.authorized_by,
+            receiver_id:this.state.receiver_id,
+            comments:this.state.paymentComment,
+            amount:this.state.amount
+        }
+        this.props.createPayment(data).then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    payments:  action.payload.payments
+                });
+                // e.target.value = '';
+                //document.getElementById('commentForm').value = '';
+            }
+        })
     }
 
     onPaymentInputChange = e => {
         this.setState({
             [e.target.name]:e.target.value
         })
-        console.log(this.state);
     }
 
     handleSubmit = e => {
@@ -66,7 +97,6 @@ class CreateForm extends Component {
             .createComment(this.state.comment, this.state.service.id)
             .then(action => {
                 if (action.payload.status === 200) {
-                    console.log(action.payload.comments);
                     ctx.setState({
                         comments:  action.payload.comments,
                         comment: ""
@@ -127,15 +157,19 @@ class CreateForm extends Component {
                                     eventKey={3}
                                     title={
                                         <span>
-                                            <i className="fa fa-cube"></i> Style
+                                            <i className="fa fa-cube"></i> Pago extra
                                         </span>
                                     }
                                 >
                                     <ExternalPaymentForm 
                                         handleSubmit={this.handlePaymentSubmit}
                                         onInputChange={this.onPaymentInputChange}
+                                        calendarChanged={this.calendarChanged}
+                                        pay_date={this.state.pay_date}
                                         users={this.state.users}
                                     />
+
+                                    <PaymentsList payments={this.state.payments} />
                                 </Tab>
                             </Tabs>
                         </div>
@@ -151,7 +185,7 @@ function mapStateToProps(state) {
 
 function mapActionsToprops(dispatch) {
     return bindActionCreators({ 
-        getCatalogs,getServiceDetail, createComment,getServiceComments }, dispatch);
+        getCatalogs,getServiceDetail, createComment,getServiceComments,createPayment,getServiceExtraPayments }, dispatch);
 }
 export default withRouter(
     connect(

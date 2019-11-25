@@ -30,7 +30,7 @@ import ServiceCreate from '../Services/CreateForm';
 import ServiceList from '../Services/List';
 import ServiceEdit from '../Services/Edit';
 import ServiceDetail from '../Services/Detail';
-
+import Tracking from '../Tracking';
 
 const Main = ({
     location,
@@ -68,7 +68,7 @@ const Main = ({
                         <SideBar />
                         <div className="main-panel">
                             <Header />
-                              <Route exact path="/"  />
+                              <Route exact path="/" component={Tracking} />
                               <Route path="/components" component={Components} />
                               <Route path="/profile" component={UserProfile} />
                               <Route path="/forms" component={Forms} />
