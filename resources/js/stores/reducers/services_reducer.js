@@ -9,7 +9,8 @@ import {
     GET_SERVICE_COMMENTS,
     CREATE_PAYMENT,
     GET_SERVICE_PAYMENTS,
-    GET_TRACKING
+    GET_TRACKING,
+    CREATE_INVOICE
 } from "../types";
 
 const serviceState = {
@@ -40,6 +41,10 @@ export default (state = serviceState, action) => {
         }
         case CREATE_SERVICE: {
             _state.catalogs = action.payload.serviceId;
+            return _state;
+        }
+        case CREATE_INVOICE: {
+            _state.invoice = action.payload.invoice;
             return _state;
         }
         case CREATE_COMMENT: {

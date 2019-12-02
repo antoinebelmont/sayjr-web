@@ -8,12 +8,29 @@ import {
     GET_SERVICE_COMMENTS,
     CREATE_PAYMENT,
     GET_SERVICE_PAYMENTS,
-    GET_TRACKING
+    GET_TRACKING,
+    CREATE_INVOICE
 } from "../types";
 
 import axios from "axios";
 
 export function getTracking(){
+    const request = axios({
+        url: '/api/services/tracking',
+        method:'GET'
+    }).then(({data})=>{
+        return {...data,status:200}
+    }).catch(({response}) => {
+        console.error(response)
+    })
+
+    return {
+        type: GET_TRACKING,
+        payload: request
+    }
+}
+
+export function getReport(){
     const request = axios({
         url: '/api/services/tracking',
         method:'GET'
@@ -220,6 +237,27 @@ export function createPayment(data) {
 
     return {
         type: CREATE_PAYMENT,
+        payload: request
+    };
+}
+
+export function createInvoice(data) {
+    let url = "/api/services/invoice";
+    let method = 'POST';
+    const request = axios({
+        url,
+        method,
+        data
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: CREATE_INVOICE,
         payload: request
     };
 }

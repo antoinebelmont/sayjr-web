@@ -22,7 +22,7 @@ class CreateForm extends Component {
         statuses: [],
         address: "",
         firstContact: new Date(),
-        serviceDate: new Date(),
+        serviceDate: "",
         lat: 20.6738686,
         lon: -103.3704326,
         zoom: 13,
@@ -52,7 +52,7 @@ class CreateForm extends Component {
         _.forEach(this.state.dataMatrix, (value, attr) => {
             let v = data.get(attr);
             dataMatrix[attr] = v;
-            v == "" ? attr != "id" && (ctx.complete = false) : {};
+            v == "" ? attr != "id" && attr != "service_date" && (ctx.complete = false) : {};
         });
 
         if (ctx.complete === false) {

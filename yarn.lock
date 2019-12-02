@@ -7122,6 +7122,11 @@ react-clock@^2.3.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
+react-csv@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-csv/-/react-csv-1.1.2.tgz#6cb47e625f51878d24bb68a120efb45a30ad243a"
+  integrity sha512-pTOTYntW+gQWzCxyEGfS5ZeOfQw4Mu3B+DJd4jrJKNuAWFQ+EEyF2Earfg0+FVEkPwMr62OLtbYCHmc6vQWj2w==
+
 react-date-picker@^7.8.0:
   version "7.8.2"
   resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-7.8.2.tgz#448657c6d7fc8e225ff06c7f9345488894d416ce"

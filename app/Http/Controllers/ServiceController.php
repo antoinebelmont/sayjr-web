@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AccountCoverage;
 use App\ExtraPay;
 use App\Insurance;
+use App\Invoice;
 use App\Service;
 use App\ServiceComments;
 use App\Type;
@@ -58,6 +59,13 @@ class ServiceController extends Controller
         $data['pay_date'] =\Carbon\Carbon::parse($data['pay_date'])->setTimezone('GMT-6');
         ExtraPay::create($data);
         return response()->json(['payments' => ExtraPay::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
+    }
+
+    public function createInvoice(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        Invoice::create($data);
+        return response()->json(['invoice' => Invoice::where('service_id',$data['service_id'])->first()]) ;
     }
 
     public function getComments($serviceId){

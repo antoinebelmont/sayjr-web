@@ -23,7 +23,7 @@ class CreateServicesTable extends Migration
             $table->bigInteger('insurance_id',false,true);
             $table->bigInteger('account_coverage_id',false,true);
             $table->bigInteger('user_contact_id',false,true);
-            $table->dateTime('service_date');
+            $table->dateTime('service_date')->nullable();
             $table->float('latitude');
             $table->float('longitude');
             $table->string('client_name',150);

@@ -62,6 +62,30 @@ const DetailCard = props => (
                         </td>
                     </tr>
                     <tr>
+                        <td className="info col-sm-6 col-lg-3">Número de factura</td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.invoice.number}
+                        </td>
+                        <td className="info col-sm-6 col-lg-3">
+                            Número de cierre
+                        </td>
+                        <td className="col-sm-6 col-lg-3">
+                        {props.invoice.closing_number}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="info col-sm-6 col-lg-3">Comentarios de facturación</td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.invoice.comments}
+                        </td>
+                        <td className="info col-sm-6 col-lg-3">
+                            Facturó
+                        </td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.invoice.user_id}
+                        </td>
+                    </tr>
+                    <tr>
                         <td className="info col-sm-6 col-lg-3">Dirección</td>
                         <td className="col-sm-6 col-lg-3" colSpan="3">
                             {props.service.address}

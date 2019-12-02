@@ -31,6 +31,7 @@ import ServiceList from '../Services/List';
 import ServiceEdit from '../Services/Edit';
 import ServiceDetail from '../Services/Detail';
 import Tracking from '../Tracking';
+import Reports from '../Reports';
 
 const Main = ({
     location,
@@ -82,6 +83,7 @@ const Main = ({
                               <Route path="/service/detail/:id" exact component={ServiceDetail} />
                               <Route exact path='/insurance/insurances' component={InsuranceList} />
                               <Route exact path='/insurance/coverages' component={AccountCoverage} />
+                              <Route exact path='/reports' component={Reports} />
                         </div>
                     </div>
                 ) : location.pathname != "/login" ? (
