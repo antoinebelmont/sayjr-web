@@ -26,6 +26,11 @@ class ServiceController extends Controller
             ]
         ]);
     }
+
+    public function getReport(Request $request){
+        $report=DB::table('base_report')->select($request->fields)->get()->toArray();
+        return response()->json(['report' => $report]);
+    }
     public function getCatalogs()
     {
         return response()->json(

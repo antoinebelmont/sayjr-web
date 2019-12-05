@@ -9,7 +9,8 @@ import {
     CREATE_PAYMENT,
     GET_SERVICE_PAYMENTS,
     GET_TRACKING,
-    CREATE_INVOICE
+    CREATE_INVOICE,
+    GET_REPORT
 } from "../types";
 
 import axios from "axios";
@@ -30,10 +31,11 @@ export function getTracking(){
     }
 }
 
-export function getReport(){
+export function getReport(fields){
     const request = axios({
-        url: '/api/services/tracking',
-        method:'GET'
+        url: '/api/services/report',
+        method:'POST',
+        data:{fields}
     }).then(({data})=>{
         return {...data,status:200}
     }).catch(({response}) => {
@@ -41,7 +43,7 @@ export function getReport(){
     })
 
     return {
-        type: GET_TRACKING,
+        type: GET_REPORT,
         payload: request
     }
 }

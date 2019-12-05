@@ -10,14 +10,16 @@ import {
     CREATE_PAYMENT,
     GET_SERVICE_PAYMENTS,
     GET_TRACKING,
-    CREATE_INVOICE
+    CREATE_INVOICE,
+    GET_REPORT
 } from "../types";
 
 const serviceState = {
     catalogs: [],
     services: [],
     comments:[],
-    payments:[]
+    payments:[],
+    report:[]
 };
 
 export default (state = serviceState, action) => {
@@ -56,6 +58,10 @@ export default (state = serviceState, action) => {
             return _state;
         }
         case GET_SERVICE: {
+            _state.report = action.payload;
+            return _state;
+        }
+        case GET_REPORT: {
             _state.service = action.payload;
             return _state;
         }
