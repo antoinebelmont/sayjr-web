@@ -31,11 +31,11 @@ export function getTracking(){
     }
 }
 
-export function getReport(fields){
+export function getReport(fields,details){
     const request = axios({
         url: '/api/services/report',
         method:'POST',
-        data:{fields}
+        data:{fields,details}
     }).then(({data})=>{
         return {...data,status:200}
     }).catch(({response}) => {

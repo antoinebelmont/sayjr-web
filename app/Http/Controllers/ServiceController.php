@@ -28,8 +28,20 @@ class ServiceController extends Controller
     }
 
     public function getReport(Request $request){
-        $report=DB::table('base_report')->select($request->fields)->get()->toArray();
-        return response()->json(['report' => $report]);
+        $report=DB::table('base_report')->select($request->fields);
+        if($request->details == 'comments'){
+            $fields = $request->fields;
+            array_push($fields,'comments.*');
+            $report->select($fields);
+            $report->leftJoin('comments','base_report.id','=','comments.service_id');
+        }
+        else if($request->details == 'extra_payments'){
+            $fields = $request->fields;
+            array_push($fields,'extra_payments.*');
+            $report->select($fields);
+            $report->leftJoin('extra_payments','base_report.id','=','extra_payments.service_id');
+        }
+        return response()->json(['report' => $report->get()->toArray()]);
     }
     public function getCatalogs()
     {

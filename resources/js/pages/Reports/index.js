@@ -39,6 +39,7 @@ class Report extends Component {
             }),
             {}
         ),
+        details:'',
         labels:{
                 id:'#',
                 client_name:'Cliente',
@@ -59,7 +60,6 @@ class Report extends Component {
     }
 
     handleCheckboxChange = changeEvent => {
-        console.log(changeEvent.target.name)
         const { name } = changeEvent.target;
     
         this.setState(prevState => ({
@@ -106,14 +106,23 @@ class Report extends Component {
         keys.map(value => {
             headers.push({label:this.state.labels[value],key:value})
         })
+        if(this.state.details == 'comments'){
+            headers.push({label:'Comentario',key:'comment'});
+            headers.push({label:'Fecha de comentario',key:'comment_date'});
+            headers.push({label:'Comenta',key:'comment_user'});
+        }
+        if(this.state.details == 'extra_payments'){
+            headers.push({label:'Receptor',key:'receiver'});
+            headers.push({label:'Fecha de pago',key:'pay_date'});
+            headers.push({label:'Monto',key:'amount'});
+        }
         this.setState({
             headers
         });
-        this.props.getReport(keys).then(({payload}) => {
+        this.props.getReport(keys,this.state.details).then(({payload}) => {
             this.setState({
                 data:payload.report
             })
-            console.log(this.state.data)
             let btn = ctx.refs.csv;
             btn.link.click();
         });
@@ -134,6 +143,9 @@ class Report extends Component {
       }));
     });
   };
+  handleChange = e =>{
+      this.setState({details:e.target.value})
+  }
 
     render() {
         return (
@@ -154,6 +166,12 @@ class Report extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
+                                <select onChange={this.handleChange}>
+                                    <option value="">Detalle</option>
+                                    <option value="comments">Comentarios</option>
+                                    <option value="extra_payments">Pagos extras</option>
+                                </select>
                                 <div className="float-right">
                                 <button
                   type="button"
