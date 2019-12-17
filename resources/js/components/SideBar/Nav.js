@@ -11,7 +11,7 @@ class Nav extends Component {
             <ul className="nav">
                 <li className={location.pathname === "/" ? "active" : null}>
                     <Link to="/">
-                        <i className="pe-7s-graph"></i>
+                        <i className="fa fa-dashboard"></i>
                         <p>Dashboard</p>
                     </Link>
                 </li>
@@ -31,7 +31,7 @@ class Nav extends Component {
                         }
                         data-toggle="collapse"
                     >
-                        <i className="pe-7s-plugin"></i>
+                        <i className="fa fa-folder-open-o"></i>
                         <p>
                             Servicios
                             <b className="caret"></b>
@@ -83,7 +83,7 @@ class Nav extends Component {
                         }
                         data-toggle="collapse"
                     >
-                        <i className="pe-7s-plugin"></i>
+                        <i className="fa fa-briefcase"></i>
                         <p>
                             Aseguradoras
                             <b className="caret"></b>
@@ -124,7 +124,7 @@ class Nav extends Component {
                 </li>
                 <li className={location.pathname === "/reports" ? "active" : null}>
                     <Link to="/reports">
-                        <i className="pe-7s-graph"></i>
+                        <i className="fa fa-file-text-o"></i>
                         <p>Reporteador</p>
                     </Link>
                 </li>
