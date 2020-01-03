@@ -6,6 +6,12 @@ use JWTAuth;
 use JWTAuthException;
 class UserController extends Controller
 {
+
+    public function index (){
+        return response()->json([
+            'users' => User::all()
+        ]);
+    }
     private function getToken($email, $password)
     {
         $token = null;

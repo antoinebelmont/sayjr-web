@@ -128,6 +128,58 @@ class Nav extends Component {
                         <p>Reporteador</p>
                     </Link>
                 </li>
+
+                <li
+                    className={
+                        this.isPathActive("/users") ||
+                        this.state.usersMenuOpen
+                            ? "active"
+                            : null
+                    }
+                >
+                    <a
+                        onClick={() =>
+                            this.setState({
+                                usersMenuOpen: !this.state.usersMenuOpen
+                            })
+                        }
+                        data-toggle="collapse"
+                    >
+                        <i className="fa fa-users"></i>
+                        <p>
+                            Usuarios
+                            <b className="caret"></b>
+                        </p>
+                    </a>
+                    <Collapse in={this.state.usersMenuOpen}>
+                        <div>
+                            <ul className="nav">
+                                {/* <li
+                                    className={
+                                        this.isPathActive("/users/create")
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/users/create">
+                                        Dar de alta usuario
+                                    </Link>
+                                </li> */}
+                                <li
+                                    className={
+                                        this.isPathActive("/users/list")
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/users/list">
+                                        Lista de usuarios
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </Collapse>
+                </li>
                 {/* <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
             data-toggle="collapse">

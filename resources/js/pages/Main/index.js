@@ -30,6 +30,10 @@ import ServiceCreate from '../Services/CreateForm';
 import ServiceList from '../Services/List';
 import ServiceEdit from '../Services/Edit';
 import ServiceDetail from '../Services/Detail';
+import UsersCreate from '../Users/CreateForm';
+import UsersList from '../Users/List';
+// import UsersEdit from '../Users/Edit';
+// import UsersDetail from '../Users/Detail';
 import Tracking from '../Tracking';
 import Reports from '../Reports';
 
@@ -81,6 +85,10 @@ const Main = ({
                               <Route path="/service/list" exact component={ServiceList} />
                               <Route path="/service/edit/:id" component={ServiceEdit} />
                               <Route path="/service/detail/:id" exact component={ServiceDetail} />
+                              <Route path="/users/create" exact component={UsersCreate} />
+                              <Route path="/users/list" exact component={UsersList} />
+                              {/* <Route path="/users/edit/:id" component={usersEdit} />
+                              <Route path="/users/detail/:id" exact component={usersDetail} /> */}
                               <Route exact path='/insurance/insurances' component={InsuranceList} />
                               <Route exact path='/insurance/coverages' component={AccountCoverage} />
                               <Route exact path='/reports' component={Reports} />

@@ -20,3 +20,5 @@ export const CREATE_PAYMENT = "CREATE_PAYMENT";
 export const GET_TRACKING = "GET_TRACKING";
 export const CREATE_INVOICE = "CREATE_INVOICE";
 export const GET_REPORT = "GET_REPORT";
+
+export const USERS_LIST = 'USERS_LIST';

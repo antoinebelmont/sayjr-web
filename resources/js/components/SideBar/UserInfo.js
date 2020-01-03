@@ -14,20 +14,20 @@ class UserInfo extends Component {
     let { isShowingUserMenu } = this.state;
     return (
       <div className="user-wrapper">
-        <div className="user">
-          {/* <img src={user.image} alt={user.name} className="photo" /> */}
+        {/* <div className="user">
+          <img src={user.image} alt={user.name} className="photo" />
           <div className="userinfo">
             <div className="username">
               {user.name}
             </div>
-            {/* <div className="title">Administrativo</div> */}
+            <div className="title">Administrativo</div>
           </div>
           <span
             onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}
             className={cx("pe-7s-angle-down collapse-arrow", {
               active: isShowingUserMenu
             })}></span>
-        </div>
+        </div> */}
         <Collapse in={isShowingUserMenu}>
           <ul className="nav user-nav">
             <li><a href="#">My Profile</a></li>
