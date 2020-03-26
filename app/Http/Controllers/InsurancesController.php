@@ -26,7 +26,6 @@ class InsurancesController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -37,7 +36,11 @@ class InsurancesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $insurance = new Insurance();
+        $insurance->name = $request->name;
+        $insurance->status = 1;
+        $insurance->save();
+        return response()->json('success',200);
     }
 
     /**

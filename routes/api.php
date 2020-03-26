@@ -26,6 +26,7 @@ Route::group(['middleware' => ['jwt.auth', 'api-header']], function () {
 
     Route::resource('insurances','InsurancesController');
     Route::resource('account-coverages','AccountCoverageController');
+    
     Route::get('services/catalogs','ServiceController@getCatalogs');
     Route::get('services/tracking','ServiceController@getTracking');
     Route::get('services/comments/{serviceId}','ServiceController@getComments');

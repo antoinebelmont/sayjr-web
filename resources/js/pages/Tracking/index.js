@@ -5,13 +5,15 @@ import { bindActionCreators } from 'redux';
 import { getTracking} from 'stores/actions/services_actions';
 import Pending from './Pending';
 import Appointed from './Appointed';
+import ForTheDay from './ForTheDay';
 
 
 class Tracking extends React.Component {
     state = {
         pending:[],
         appointed:[],
-        attended:[]
+        attended:[],
+        forTheDay:[]
     }
     componentDidMount(){
         this.refreshTracking();
@@ -36,9 +38,8 @@ class Tracking extends React.Component {
                     <Pending pendingServices={this.state.pending}/>
                     <Appointed appointedServices={this.state.appointed}/>
                 </div>
-                <div className='row'>
-                    <Appointed appointedServices={this.state.appointed}/>
-                    <Pending pendingServices={this.state.pending}/>
+                <div className='col-md-12'>
+                    <ForTheDay appointedServices={this.state.forTheDay}/>
                 </div>
             </div>
         )

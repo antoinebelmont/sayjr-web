@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountCoverage extends Model
 {
-    protected $fillable = ["status"];
+    protected $fillable = ["bank","coverage","insurance_id", "status"];
 
     public function insurance(){
         return $this->belongsTo(Insurance::class);

@@ -45,7 +45,10 @@ class AccountCoverageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['status'] =1;
+        AccountCoverage::create($data);
+        return response()->json('success',200);
     }
 
     /**

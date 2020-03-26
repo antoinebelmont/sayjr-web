@@ -25,16 +25,16 @@ const Actions = props => {
             >
                 <i className="fa fa-edit"></i>
             </a>
-            <button
+            {/* <button
                 type="button"
                 rel="tooltip"
                 data-placement="left"
                 title=""
                 className="btn btn-danger btn-simple btn-icon "
                 data-original-title="Remove Post"
-            >
+            > 
                 <i className="fa fa-times"></i>
-            </button>
+            </button>*/}
         </div>
     );
 };

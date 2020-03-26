@@ -22,7 +22,8 @@ class ServiceController extends Controller
             'tracking'=>[
                 'pending' => $this->formatServiceList(Service::where('status','pending')->get()),
                 'appointed' => $this->formatServiceList(Service::where('status','appointed')->get()),
-                'attended' => $this->formatServiceList(Service::where('status','attended')->get())
+                'attended' => $this->formatServiceList(Service::where('status','attended')->get()),
+                'forTheDay' => $this->formatServiceList(Service::where('status','appointed')->whereRaw('date(service_date) = date(now())')->get())
             ]
         ]);
     }
@@ -50,7 +51,7 @@ class ServiceController extends Controller
                 "insurances" => Insurance::where('status', 1)->get()->toArray(),
                 "types" => Type::all()->toArray(),
                 "accountCoverages" => AccountCoverage::where('status', 1)->select(DB::raw('id,concat(bank," - $ ",coverage) as name'))->get(),
-                "users" => User::all()->toArray(),
+                "users" => User::where('role_id','<>',1)->get()->toArray(),
                 'statuses' => [
                     ['id'=>'pending', 'name'=>'Pendiente'],
                     ['id'=>'appointed', 'name'=>'Agendado'],

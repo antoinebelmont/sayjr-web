@@ -66,7 +66,6 @@ class Nav extends Component {
                         </div>
                     </Collapse>
                 </li>
-
                 <li
                     className={
                         this.isPathActive("/insurance") ||
@@ -108,6 +107,19 @@ class Nav extends Component {
                                 <li
                                     className={
                                         this.isPathActive(
+                                            "/insurance/create"
+                                        )
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    <Link to="/insurance/create">
+                                        Crear Aseguradora
+                                    </Link>
+                                </li>
+                                <li
+                                    className={
+                                        this.isPathActive(
                                             "/insurance/coverages"
                                         )
                                             ? "active"
@@ -116,6 +128,20 @@ class Nav extends Component {
                                 >
                                     <Link to="/insurance/coverages">
                                         Coberturas
+                                    </Link>
+                                </li>
+                                <li
+                                    className={
+                                        this.isPathActive(
+                                            "/insurance/createcoverage"
+                                        )
+                                            ? "active"
+                                            : null
+                                    }
+                                >
+                                    
+                                    <Link to="/insurance/createcoverage">
+                                        Crear Cobertura
                                     </Link>
                                 </li>
                             </ul>
@@ -174,6 +200,9 @@ class Nav extends Component {
                                 >
                                     <Link to="/users/list">
                                         Lista de usuarios
+                                    </Link>
+                                    <Link to="/users/create">
+                                        Crear Usuario
                                     </Link>
                                 </li>
                             </ul>

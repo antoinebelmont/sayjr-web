@@ -9,7 +9,7 @@ class UserController extends Controller
 
     public function index (){
         return response()->json([
-            'users' => User::all()
+            'users' => User::where('role_id','<>',1)->get()->toArray()
         ]);
     }
     private function getToken($email, $password)
@@ -77,5 +77,51 @@ class UserController extends Controller
         
         
         return response()->json($response, 201);
+    }
+    public function store(Request $request)
+    { 
+        $payload = [
+            'password'=>\Hash::make($request->password),
+            'email'=>$request->email,
+            'name'=>$request->name,
+            'phone' => $request->phone,
+            'role_id' => 2,
+            'auth_token'=> ''
+        ];
+                  
+        $user = new \App\User($payload);
+        if ($user->save())
+        {
+            
+            $token = self::getToken($request->email, $request->password); // generate user token
+            
+            if (!is_string($token))  return response()->json(['success'=>false,'data'=>'Token generation failed'], 201);
+            
+            $user = \App\User::where('email', $request->email)->get()->first();
+            
+            $user->auth_token = $token; // update user token
+            
+            $user->save();
+            
+            $response = ['success'=>true, 'data'=>['name'=>$user->name,'id'=>$user->id,'email'=>$request->email,'auth_token'=>$token]];        
+        }
+        else
+            $response = ['success'=>false, 'data'=>'Couldnt register user'];
+        
+        
+        return response()->json($response, 201);
+    }
+
+    public function edit($id)
+    {
+        return User::whereId($id)->get(['email','name','phone','id'])->first();
+    }
+    public function update(Request $request)
+    {
+        User::updateOrCreate(
+            ['id' => $request->id],
+            $request->all()
+        );
+        return response()->json('success',200);
     }
 }

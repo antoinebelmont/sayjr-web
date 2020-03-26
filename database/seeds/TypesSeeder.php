@@ -12,13 +12,37 @@ class TypesSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('types')->insert([
-                [
-                    'name' => $faker->name
-                ]
-            ]);
-        }
+        DB::table('types')->insert([
+            [
+                'name' => 'Fontanería'
+            ],
+            [
+                'name' => 'Electricidad'
+            ],
+            [
+                'name' => 'Vidrio'
+            ],
+            [
+                'name' => 'Herrería'
+            ],
+            [
+                'name' => 'Aluminio'
+            ],
+            [
+                'name' => 'Cerrajería'
+            ],
+            [
+                'name' => 'Carpintería'
+            ],
+            [
+                'name' => 'Albañilería'
+            ],
+            [
+                'name' => 'Pintura'
+            ],
+            [
+                'name' => 'Obra civil'
+            ],
+        ]);
     }
 }

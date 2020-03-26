@@ -22,3 +22,4 @@ export const CREATE_INVOICE = "CREATE_INVOICE";
 export const GET_REPORT = "GET_REPORT";
 
 export const USERS_LIST = 'USERS_LIST';
+export const INSURANCES_LIST = 'INSURANCES_LIST';
