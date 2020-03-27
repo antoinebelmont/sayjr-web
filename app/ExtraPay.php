@@ -17,6 +17,10 @@ class ExtraPay extends Model
         'created_id'
     ];
 
+    protected $dates = [
+        'created_at'
+    ];
+
     public function getReceiverIdAttribute($val){
         return User::find($val)->name;
     }

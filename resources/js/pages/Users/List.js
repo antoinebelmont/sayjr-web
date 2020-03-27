@@ -29,7 +29,7 @@ class List extends Component{
           <div className="col-md-12">
             <div className="card">
               <div className="header">
-                <h4>Servicios</h4>
+                <h4>Usuarios</h4>
               </div>
               <div className="content">
                 <BootstrapTable

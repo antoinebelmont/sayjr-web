@@ -152,9 +152,9 @@ class CreateForm extends Component {
                 <div className="col-md-12">
                     <div className="card">
                         <div className="header">
-                            <h4 className="title">Tabs &amp; Icons</h4>
+                            <h4 className="title">Servicio </h4>
                             <p className="category">
-                                Tabs with icons and full width
+                                
                             </p>
                         </div>
                         <div className="content content-full-width">
