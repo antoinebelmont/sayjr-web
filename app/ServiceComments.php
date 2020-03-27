@@ -23,6 +23,6 @@ class ServiceComments extends Model
 
     public function getCreatedAtAttribute($val)
     {
-        return Carbon::create($val)->format('d/m/Y H:i') ;
+        return Carbon::create($val)->timezone( 'GMT-7')->format('d/m/Y H:i') ;
     }
 }
