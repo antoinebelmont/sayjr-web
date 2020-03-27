@@ -23,6 +23,6 @@ class ServiceComments extends Model
 
     public function getCreatedAtAttribute($val)
     {
-        return Carbon::create($val)->addHours(1)->format('d/m/Y H:i') ;
+        return Carbon::create($val)->addHours()->format('d/m/Y H:i') ;
     }
 }
