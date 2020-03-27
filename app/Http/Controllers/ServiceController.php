@@ -23,7 +23,7 @@ class ServiceController extends Controller
                 'pending' => $this->formatServiceList(Service::where('status','pending')->get()),
                 'appointed' => $this->formatServiceList(Service::where('status','appointed')->get()),
                 'attended' => $this->formatServiceList(Service::where('status','attended')->get()),
-                'forTheDay' => $this->formatServiceList(Service::where('status','appointed')->whereRaw('date(service_date) = date_sub(date(now(),interval 6 hours))')->get())
+                'forTheDay' => $this->formatServiceList(Service::where('status','appointed')->whereRaw('date(service_date) = date_sub(date(now(),interval 6 hour))')->get())
             ]
         ]);
     }
