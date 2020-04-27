@@ -20,7 +20,7 @@ const PendingTable = ({pendingServices}) =>(
                 {pendingServices.map(item => (
                     <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td>{item.title}</td>
+                        <td><a href={`/service/detail/${item.id}`}>{item.title}</a></td>
                         <td>{item.first_contact_date}</td>
                         <td>{item.receptor}</td>
                     </tr>

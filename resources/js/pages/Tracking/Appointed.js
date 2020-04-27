@@ -20,7 +20,7 @@ const Appointed = ({appointedServices}) =>(
                 {appointedServices.map(item => (
                     <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td>{item.title}</td>
+                        <td><a href={`/service/detail/${item.id}`}>{item.title}</a></td>
                         <td>{item.attendant}</td>
                         <td>{item.service_date}</td>
                     </tr>
