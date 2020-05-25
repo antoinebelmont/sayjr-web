@@ -10,7 +10,8 @@ import {
     GET_SERVICE_PAYMENTS,
     GET_TRACKING,
     CREATE_INVOICE,
-    GET_REPORT
+    GET_REPORT,
+    DELETE_SERVICE
 } from "../types";
 
 import axios from "axios";
@@ -107,6 +108,28 @@ export function createService(dataMatrix) {
 
     return {
         type: CREATE_SERVICE,
+        payload: request
+    };
+}
+
+export function deleteService(serviceId) {
+    console.log(serviceId);
+    let url = `/api/services/${serviceId}`;
+    let method = 'DELETE';
+
+    const request = axios({
+        url,
+        method
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: DELETE_SERVICE,
         payload: request
     };
 }

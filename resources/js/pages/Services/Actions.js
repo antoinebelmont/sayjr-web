@@ -1,4 +1,6 @@
 import React from "react";
+import {confirmAlert} from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Actions = props => {
     return (
@@ -26,6 +28,7 @@ const Actions = props => {
                 <i className="fa fa-edit"></i>
             </a>
             <button
+                onClick={()=>{confirmAlert(options(props))}}
                 type="button"
                 rel="tooltip"
                 data-placement="left"
@@ -39,4 +42,18 @@ const Actions = props => {
     );
 };
 
+const options = props =>{return {
+    title: 'Eliminar servicio',
+    message: 'Seguro que desea eliminar el servicio?',
+    buttons: [
+      {
+        label: 'Si',
+        onClick: () => window.location = `/service/delete/${props}`
+      },
+      {
+        label: 'Cancelar',
+        onClick: () => close()
+      }
+    ]
+  }};
 export default Actions;

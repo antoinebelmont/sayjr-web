@@ -104,6 +104,7 @@ export function getCoverage(insuranceId){
         method:method
     })
         .then(({data})=>{
+            console.log(data)
             return {...data,status: 200};
         })
         .catch(({response}) => {
@@ -131,6 +132,29 @@ export function getAccounts() {
         type: GET_ACCOUNTS,
         payload: request
     };
+}
+
+
+
+export function getAccount(insuranceId){
+    console.log('comienza el get')
+    let url = `/api/insurances/${insuranceId}/edit`;
+    let method = 'GET';
+    const request = axios({
+        url:url,
+        method:method
+    })
+        .then(({data})=>{
+            console.log(data)
+            return {...data,status: 200};
+        })
+        .catch(({response}) => {
+            console.error(response);
+        })
+    return {
+        type: INSURANCES_LIST,
+        payload: request
+    }
 }
 
 export function changeAccountStatus(data) {

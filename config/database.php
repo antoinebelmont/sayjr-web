@@ -3,10 +3,10 @@
 use Illuminate\Support\Str;
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$host = $url["host"];
+/*$host = $url["host"]??env('DB_HOST', '127.0.0.1');
 $username = $url["user"];
 $password = $url["pass"];
-$database = substr($url["path"], 1);
+$database = substr($url["path"], 1);*/
 return [
 
     /*
@@ -39,7 +39,7 @@ return [
     */
 
     'connections' => [
-        'heroku' => [
+        /*'heroku' => [
             'driver' => 'mysql',
             'host' => $host,
             'database' => $database,
@@ -48,7 +48,7 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
-        ],
+        ],*/
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
@@ -77,7 +77,7 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
+        /*'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => $host,
             'database' => $database,
@@ -86,7 +86,7 @@ return [
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
-        ],
+        ],*/
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

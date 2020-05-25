@@ -62,7 +62,7 @@ class InsurancesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Insurance::find($id);
     }
 
     /**
@@ -74,9 +74,11 @@ class InsurancesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->except(['id']);
+        $data['status'] = 1;
         Insurance::updateOrCreate(
             ['id'=>$request->id],
-            $request->except(['id'])
+            $data
         );
         return response()->json([
             "message" => "Actualizado"

@@ -70,7 +70,7 @@ class AccountCoverageController extends Controller
      */
     public function edit($id)
     {
-        //
+        return AccountCoverage::find($id);
     }
 
     /**
@@ -82,9 +82,11 @@ class AccountCoverageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->except(['id']);
+        $data['status'] = 1;
         AccountCoverage::updateOrCreate(
             ['id'=>$request->id],
-            $request->except(['id'])
+            $data
         );
         return response()->json([
             "message" => "Actualizado"

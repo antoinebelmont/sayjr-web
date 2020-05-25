@@ -63,7 +63,8 @@ const CoverageForm = ({ handleSubmit, catalogs, onInputChange }) => (
                                     input={{
                                         name: "coverage",
                                         step:".01",
-                                        onChange: value =>
+                                        value: catalogs.dataMatrix.coverage,
+                                        onChange: value => 
                                         onInputChange(value, "coverage")
                                     }}
                                     component={renderField}

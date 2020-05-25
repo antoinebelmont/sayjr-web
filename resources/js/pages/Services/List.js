@@ -21,6 +21,11 @@ class List extends Component{
             hideSizePerPage: false,
           }
       };
+
+      alertTest(){
+        alert('prueba')
+      }
+
     componentDidMount(){
         const ctx = this;
         this.props.getServices().then(action =>{

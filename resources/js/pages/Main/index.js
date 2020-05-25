@@ -26,12 +26,15 @@ import withSplash from "../../helpers/with-splash";
 
 import InsuranceList from '../Insurances/InsuranceList';
 import InsuranceCreate from '../Insurances/InsuranceCreate';
+import InsuranceEdit from '../Insurances/Edit';
 import AccountCoverage from '../Insurances/AccountCoveraje';
+import AccountEdit from '../Insurances/AccountEdit';
 import CreateCoverage from '../Insurances/CoverageCreate';
 import ServiceCreate from '../Services/CreateForm';
 import ServiceList from '../Services/List';
 import ServiceEdit from '../Services/Edit';
 import ServiceDetail from '../Services/Detail';
+import ServiceDelete from '../Services/Delete';
 import UsersCreate from '../Users/CreateForm';
 import UsersList from '../Users/List';
 import UsersEdit from '../Users/Edit';
@@ -87,12 +90,15 @@ const Main = ({
                               <Route path="/service/list" exact component={ServiceList} />
                               <Route path="/service/edit/:id" component={ServiceEdit} />
                               <Route path="/service/detail/:id" exact component={ServiceDetail} />
+                              <Route path="/service/delete/:id" exact component={ServiceDelete} />
                               <Route path="/users/create" exact component={UsersCreate} />
                               <Route path="/users/list" exact component={UsersList} />
                                <Route path="/users/edit/:id" component={UsersEdit} />
                               {/*<Route path="/users/detail/:id" exact component={usersDetail} /> */}
                               <Route exact path='/insurance/insurances' component={InsuranceList} />
+                              <Route exact path='/insurance/edit/:id' component={InsuranceEdit} />
                               <Route exact path='/insurance/coverages' component={AccountCoverage} />
+                              <Route exact path='/insurance/coverages/edit/:id' component={AccountEdit} />
                               <Route exact path='/insurance/createcoverage' component={CreateCoverage} />
                               <Route exact path='/insurance/create' component={InsuranceCreate} />
                               <Route exact path='/reports' component={Reports} />

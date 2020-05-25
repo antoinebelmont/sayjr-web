@@ -62,7 +62,7 @@ class AccountCoveraje extends Component {
                             {items.map(item => (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
-                                    <td>{item.bank}</td>
+                                    <td><a href={`/insurance/coverages/edit/${item.id}`}>{item.bank}</a></td>
                                     <td>$ {item.coverage}</td>
                                     <td>{item.insuranceAccount}</td>
                                     <td>

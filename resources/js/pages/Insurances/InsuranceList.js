@@ -64,7 +64,7 @@ class InsuranceList extends Component {
                             {items.map(item => (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
-                                    <td>{item.name}</td>
+                                    <td><a href={`/insurance/edit/${item.id}`}>{item.name}</a></td>
                                     <td>
                                         <Switch
                                             value={item.status}

@@ -49,6 +49,7 @@ export function createInsurance(dataMatrix){
 }
 
 export function getInsurance(insuranceId){
+    console.log('comienza el get')
     let url = `/api/insurances/${insuranceId}/edit`;
     let method = 'GET';
     const request = axios({
@@ -56,6 +57,7 @@ export function getInsurance(insuranceId){
         method:method
     })
         .then(({data})=>{
+            console.log(data)
             return {...data,status: 200};
         })
         .catch(({response}) => {

@@ -47,7 +47,7 @@ class CreateForm extends Component {
                 console.log(ctx.state.insurances);
             }
         });
-        this.props.getCoverage(this.props.coverageId).then(action => {
+        this.props.getCoverage(this.props.id).then(action => {
             if (action.payload.status === 200) {
                 if (action.payload !== null) {
                     ctx.setState({
