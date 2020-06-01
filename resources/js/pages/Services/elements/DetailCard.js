@@ -18,6 +18,19 @@ const DetailCard = props => (
                         </td>
                     </tr>
                     <tr>
+                        <td className="info col-sm-6 col-lg-3">Teléfono</td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.service.client_phone}
+                        </td>
+
+                        <td className="info col-sm-6 col-lg-3">
+                            Primer Contacto
+                        </td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.service.first_contact_date}
+                        </td>
+                    </tr>
+                    <tr>
                         <td className="info col-sm-6 col-lg-3">Aseguradora</td>
                         <td className="col-sm-6 col-lg-3">
                             {props.service.insurance}
@@ -38,15 +51,13 @@ const DetailCard = props => (
                         </td>
                     </tr>
                     <tr>
-                        <td className="info col-sm-6 col-lg-3">
-                            Primer Contacto
-                        </td>
-                        <td className="col-sm-6 col-lg-3">
-                            {props.service.first_contact_date}
-                        </td>
                         <td className="info col-sm-6 col-lg-3">Cita</td>
                         <td className="col-sm-6 col-lg-3">
                             {props.service.service_date}
+                        </td>
+                        <td className="info col-sm-6 col-lg-3">Atendido</td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.service.attended_date}
                         </td>
                     </tr>
                     <tr>
@@ -89,6 +100,12 @@ const DetailCard = props => (
                         <td className="info col-sm-6 col-lg-3">Dirección</td>
                         <td className="col-sm-6 col-lg-3" colSpan="3">
                             {props.service.address}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="info col-sm-6 col-lg-3">Referencias</td>
+                        <td className="col-sm-6 col-lg-3" colSpan="3">
+                            {props.service.address_references}
                         </td>
                     </tr>
                     <tr>

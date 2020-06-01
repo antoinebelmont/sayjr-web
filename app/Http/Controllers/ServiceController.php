@@ -10,6 +10,7 @@ use App\Service;
 use App\ServiceComments;
 use App\Type;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,30 +18,34 @@ use Illuminate\Support\Facades\DB;
 class ServiceController extends Controller
 {
 
-    public function getTRacking(){
+    public function getTRacking()
+    {
         return response()->json([
-            'tracking'=>[
-                'pending' => $this->formatServiceList(Service::where('status','pending')->get()),
-                'appointed' => $this->formatServiceList(Service::where('status','appointed')->get()),
-                'attended' => $this->formatServiceList(Service::where('status','attended')->get()),
-                'forTheDay' => $this->formatServiceList(Service::where('status','appointed')->whereRaw('date(service_date) = date_sub(date(now()),interval 6 hour)')->get())
+            'tracking' => [
+                'pending' => $this->formatServiceList(Service::where('status', 'pending')->get()),
+                'appointed' => $this->formatServiceList(Service::where('status', 'appointed')->get()),
+                'attended' => $this->formatServiceList(Service::where('status', 'attended')->get()),
+                'forTheDay' => $this->formatServiceList(Service::where('status', 'appointed')->whereRaw('date(service_date) = date_sub(date(now()),interval 6 hour)')->get())
             ]
         ]);
     }
 
-    public function getReport(Request $request){
-        $report=DB::table('base_report')->select($request->fields);
-        if($request->details == 'comments'){
+    public function getReport(Request $request)
+    {
+        $report = DB::table('base_report')->select($request->fields);
+        if ($request->details == 'comments') {
             $fields = $request->fields;
-            array_push($fields,'comments.*');
+            array_push($fields, 'comments.*');
             $report->select($fields);
-            $report->leftJoin('comments','base_report.id','=','comments.service_id');
+            $report->leftJoin('comments', 'base_report.id', '=', 'comments.service_id');
+        } else if ($request->details == 'extra_payments') {
+            $fields = $request->fields;
+            array_push($fields, 'extra_payments.*');
+            $report->select($fields);
+            $report->leftJoin('extra_payments', 'base_report.id', '=', 'extra_payments.service_id');
         }
-        else if($request->details == 'extra_payments'){
-            $fields = $request->fields;
-            array_push($fields,'extra_payments.*');
-            $report->select($fields);
-            $report->leftJoin('extra_payments','base_report.id','=','extra_payments.service_id');
+        if (!empty($request->startDate) && !empty($request->finishDate)) {
+            $report->whereBetween('first_contact_date', [Carbon::create($request->startDate)->format('Y-m-d H:i:s'), Carbon::create($request->finishDate)->format('Y-m-d H:i:s')]);
         }
         return response()->json(['report' => $report->get()->toArray()]);
     }
@@ -51,47 +56,52 @@ class ServiceController extends Controller
                 "insurances" => Insurance::where('status', 1)->get()->toArray(),
                 "types" => Type::all()->toArray(),
                 "accountCoverages" => AccountCoverage::where('status', 1)->select(DB::raw('id,concat(bank," - $ ",coverage) as name'))->get(),
-                "users" => User::where('role_id','<>',1)->get()->toArray(),
+                "users" => User::where('role_id', '<>', 1)->get()->toArray(),
                 'statuses' => [
-                    ['id'=>'pending', 'name'=>'Pendiente'],
-                    ['id'=>'appointed', 'name'=>'Agendado'],
-                    ['id'=>'attended', 'name'=>'Atendido'],
-                    ['id'=>'finished', 'name'=>'Terminado'],
-                    ['id'=>'canceled', 'name'=>'Cancelado'],
-                    ['id'=>'posponed', 'name'=>'Pospuesto'],
+                    ['id' => 'pending', 'name' => 'Pendiente'],
+                    ['id' => 'appointed', 'name' => 'Agendado'],
+                    ['id' => 'attended', 'name' => 'Atendido'],
+                    ['id' => 'finished', 'name' => 'Terminado'],
+                    ['id' => 'canceled', 'name' => 'Cancelado'],
+                    ['id' => 'posponed', 'name' => 'Pospuesto'],
                 ]
             ]
         );
     }
 
-    public function createComment(Request $request){
+    public function createComment(Request $request)
+    {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         ServiceComments::create($data);
-        return response()->json(['comments' => ServiceComments::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
+        return response()->json(['comments' => ServiceComments::where('service_id', $data['service_id'])->orderBy('id', 'desc')->get()]);
     }
 
-    public function createPayment(Request $request){
+    public function createPayment(Request $request)
+    {
         $data = $request->all();
         $data['created_id'] = Auth::user()->id;
-        $data['pay_date'] =\Carbon\Carbon::parse($data['pay_date'])->setTimezone('GMT-6');
+        $data['pay_date'] = \Carbon\Carbon::parse($data['pay_date'])->setTimezone('GMT-6');
         ExtraPay::create($data);
-        return response()->json(['payments' => ExtraPay::where('service_id',$data['service_id'])->orderBy('id','desc')->get()]) ;
+        return response()->json(['payments' => ExtraPay::where('service_id', $data['service_id'])->orderBy('id', 'desc')->get()]);
     }
 
-    public function createInvoice(Request $request){
+    public function createInvoice(Request $request)
+    {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         Invoice::create($data);
-        return response()->json(['invoice' => Invoice::where('service_id',$data['service_id'])->first()]) ;
+        return response()->json(['invoice' => Invoice::where('service_id', $data['service_id'])->first()]);
     }
 
-    public function getComments($serviceId){
-        return response()->json(['comments' => ServiceComments::where('service_id',$serviceId)->orderBy('id','desc')->get()->toArray()]) ;
+    public function getComments($serviceId)
+    {
+        return response()->json(['comments' => ServiceComments::where('service_id', $serviceId)->orderBy('id', 'desc')->get()->toArray()]);
     }
 
-    public function getPayments($serviceId){
-        return response()->json(['payments' => ExtraPay::where('service_id',$serviceId)->orderBy('id','desc')->get()->toArray()]) ;
+    public function getPayments($serviceId)
+    {
+        return response()->json(['payments' => ExtraPay::where('service_id', $serviceId)->orderBy('id', 'desc')->get()->toArray()]);
     }
 
     public function getAccountCoverages(Request $request)
@@ -116,7 +126,7 @@ class ServiceController extends Controller
 
     public function formatServiceList($serviceList = null)
     {
-        $serviceList = empty($serviceList)?Service::all():$serviceList;
+        $serviceList = empty($serviceList) ? Service::all() : $serviceList;
         $services = [];
         foreach ($serviceList as $service) {
             $services[] = [
@@ -182,7 +192,10 @@ class ServiceController extends Controller
                 'attendant' => $service->attendant_name,
                 'status' => $service->statusName,
                 'first_contact_date' => $service->first_contact,
-                'service_date' => $service->first_contact,
+                'service_date' => $service->service_date_label,
+                'attended_date' => $service->attended_date_label,
+                'client_phone' => $service->client_phone,
+                'address_references' => $service->address_references
             ]
         ]);
     }

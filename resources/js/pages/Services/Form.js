@@ -15,6 +15,7 @@ const Form = ({
     catalogs,
     calendarChanged,
     calendarServiceChanged,
+    calendarAttendedChanged,
     handleChange,
     handleSelect,
     handleDrag,
@@ -61,6 +62,25 @@ const Form = ({
                                         name: "client_name",
                                         defaultValue:
                                             catalogs.dataMatrix.client_name
+                                    }}
+                                    required={true}
+                                    component={renderField}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="col-sm-3 control-label">
+                                Teléfono de cliente
+                            </label>
+                            <div className="col-sm-9">
+                                <Field
+                                    type="text"
+                                    name="client_phone"
+                                    input={{
+                                        name: "client_phone",
+                                        defaultValue:
+                                            catalogs.dataMatrix.client_phone
                                     }}
                                     required={true}
                                     component={renderField}
@@ -229,6 +249,22 @@ const Form = ({
                                 </PlacesAutocomplete>
                             </div>
                         </div>
+                        <div className="form-group">
+                            <label className="col-sm-3 control-label">
+                                Referencias
+                            </label>
+                            <div className="col-sm-9">
+                                <textarea
+                                    className={"form-control"}
+                                    defaultValue={
+                                        catalogs.dataMatrix.address_references
+                                    }
+                                    name="address_references"
+                                    required={true}
+                                    onChange={() => {}}
+                                />
+                            </div>
+                        </div>
 
                         <div className="form-group">
                             <label className="col-sm-3 control-label">
@@ -277,6 +313,19 @@ const Form = ({
                                     name="service_date"
                                     value={catalogs.serviceDate}
                                     onChange={calendarServiceChanged}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="col-sm-3 control-label">
+                                Atendido
+                            </label>
+                            <div className="col-sm-9">
+                                <DatetimePicker
+                                    name="attended_date"
+                                    value={catalogs.attendedDate}
+                                    onChange={calendarAttendedChanged}
                                 />
                             </div>
                         </div>

@@ -32,11 +32,11 @@ export function getTracking(){
     }
 }
 
-export function getReport(fields,details){
+export function getReport(fields,details,startDate,finishDate){
     const request = axios({
         url: '/api/services/report',
         method:'POST',
-        data:{fields,details}
+        data:{fields,details,startDate,finishDate}
     }).then(({data})=>{
         return {...data,status:200}
     }).catch(({response}) => {

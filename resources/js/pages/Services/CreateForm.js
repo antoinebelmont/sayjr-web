@@ -21,8 +21,10 @@ class CreateForm extends Component {
         users: [],
         statuses: [],
         address: "",
+        address_references:'',
         firstContact: new Date(),
         serviceDate: "",
+        attendedDate: "",
         lat: 20.6738686,
         lon: -103.3704326,
         zoom: 13,
@@ -33,12 +35,15 @@ class CreateForm extends Component {
             description: "",
             type_id: "",
             address: "",
+            address_references:'',
+            client_phone:"",
             first_contact_date: "",
             insurance_id: "",
             account_coverage_id: "",
             user_contact_id: "",
             user_assigned_id:'',
             service_date: "",
+            attended_date: "",
             latitude: "",
             longitude: "",
             client_name: ""
@@ -93,7 +98,8 @@ class CreateForm extends Component {
                         firstContact: new Date(
                             action.payload.service.first_contact_date
                         ),
-                        serviceDate: new Date(action.payload.service.first_contact_date)
+                        serviceDate: new Date(action.payload.service.first_contact_date),
+                        attendedDate: new Date(action.payload.service.attended_date)
                     });
                 }
             }
@@ -144,6 +150,8 @@ class CreateForm extends Component {
     };
     calendarServiceChanged = date => this.setState({ serviceDate: date });
 
+    calendarAttendedChanged = date => this.setState({ attendedDate: date });
+
     _onInputChange = (event, key) => {
         let dataMatrix = { ...this.state.dataMatrix };
         dataMatrix[key] = event.target.value;
@@ -165,6 +173,7 @@ class CreateForm extends Component {
                 onChangeHandle={this.updateAccountCoverage}
                 calendarChanged={this.calendarChanged}
                 calendarServiceChanged={this.calendarServiceChanged}
+                calendarAttendedChanged={this.calendarAttendedChanged}
                 handleChange={this.handleChange}
                 handleSelect={this.handleSelect}
                 children={this.renderPlaces}

@@ -20,7 +20,10 @@ class Service extends Model
         'latitude',
         'longitude',
         'client_name',
-        'status'
+        'status',
+        'address_references',
+        'client_phone',
+        'attended_date'
     ];
 
     public function getFirstContactAttribute($val)
@@ -30,6 +33,10 @@ class Service extends Model
     public function getServiceDateLabelAttribute($val)
     {
         return \Carbon\Carbon::parse($this->service_date)->format('d/m/Y H:i');
+    }
+    public function getAttendedDateLabelAttribute($val)
+    {
+        return \Carbon\Carbon::parse($this->attended_date)->format('d/m/Y H:i');
     }
 
     public function getStatusNameAttribute($val)
