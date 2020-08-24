@@ -19,7 +19,7 @@ const StatusAttendant = ({ catalogs, onInputChange }) => {
                         input={{
                             name: "user_assigned_id",
                             value: catalogs.dataMatrix.user_assigned_id,
-                            onChange: value => onInputChange(value, "type_id")
+                            onChange: value => onInputChange(value, "user_assigned_id")
                         }}
                         required={true}
                         component={renderField}

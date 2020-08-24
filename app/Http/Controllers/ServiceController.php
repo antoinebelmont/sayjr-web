@@ -61,6 +61,8 @@ class ServiceController extends Controller
                     ['id' => 'pending', 'name' => 'Pendiente'],
                     ['id' => 'appointed', 'name' => 'Agendado'],
                     ['id' => 'attended', 'name' => 'Atendido'],
+                    ['id' => 'to_pay', 'name' => 'Por pagar'],
+                    ['id' => 'quoted', 'name' => 'Cotizado'],
                     ['id' => 'finished', 'name' => 'Terminado'],
                     ['id' => 'canceled', 'name' => 'Cancelado'],
                     ['id' => 'posponed', 'name' => 'Pospuesto'],
@@ -135,7 +137,7 @@ class ServiceController extends Controller
                 'client_name' => $service->client_name,
                 'status' => $service->statusName,
                 'first_contact_date' => $service->first_contact,
-                'service_date' => $service->first_contact,
+                'service_date' => $service->service_date_label,
                 'attendant' => $service->attendant_name,
                 'receptor' => $service->receptor_name
             ];
