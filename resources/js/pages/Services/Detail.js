@@ -9,7 +9,8 @@ import {
     getCatalogs,
     createPayment,
     getServiceExtraPayments,
-    createInvoice
+    createInvoice,
+    getInvoice
 } from "stores/actions/services_actions";
 import DetailCard from "./elements/DetailCard";
 import { Tabs, Tab } from "react-bootstrap";
@@ -59,14 +60,15 @@ class CreateForm extends Component {
                 }
             });
         this.props
-            .getServiceComments(this.props.match.params.id)
+            .getInvoice(this.props.match.params.id)
             .then(action => {
-                if (action.payload.status === 200) {
+                if (action.payload.status === 200 && action.payload.invoice !== null) {
                     ctx.setState({
-                        comments: action.payload.comments
+                        invoice: action.payload.invoice
                     });
                 }
             });
+            
     }
 
     handleInvoiceSubmit = e => {
@@ -105,8 +107,10 @@ class CreateForm extends Component {
                 ctx.setState({
                     payments: action.payload.payments
                 });
-                // e.target.value = '';
-                //document.getElementById('commentForm').value = '';
+                document.getElementById('paymentReceiver').value = '';
+                document.getElementById('paymentAmount').value = '';
+                document.getElementById('paymentAuthorizer').value = '';
+                document.getElementById('paymentComment').value = '';
             }
         });
     };
@@ -254,7 +258,8 @@ function mapActionsToprops(dispatch) {
             getServiceComments,
             createPayment,
             getServiceExtraPayments,
-            createInvoice
+            createInvoice,
+            getInvoice
         },
         dispatch
     );

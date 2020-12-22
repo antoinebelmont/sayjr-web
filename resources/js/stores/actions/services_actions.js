@@ -10,6 +10,7 @@ import {
     GET_SERVICE_PAYMENTS,
     GET_TRACKING,
     CREATE_INVOICE,
+    GET_INVOICE,
     GET_REPORT,
     DELETE_SERVICE
 } from "../types";
@@ -283,6 +284,26 @@ export function createInvoice(data) {
 
     return {
         type: CREATE_INVOICE,
+        payload: request
+    };
+}
+
+
+
+export function getInvoice(serviceId) {
+    const request = axios({
+        url: `/api/services/invoice/${serviceId}`,
+        method: "GET"
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: GET_INVOICE,
         payload: request
     };
 }

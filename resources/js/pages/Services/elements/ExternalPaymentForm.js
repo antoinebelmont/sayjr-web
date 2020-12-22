@@ -13,7 +13,7 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users,p
                 <div className="header">
                     <h4>Registrar pago directo</h4>
                 </div>
-                <form className="form-horizontal" onSubmit={handleSubmit}>
+                <form className="form-horizontal" id='paymentForm' onSubmit={handleSubmit}>
                     <div className="content">
 
                     <div className="form-group">
@@ -42,7 +42,8 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users,p
                                     input={{
                                         name: "amount",
                                         step:".01",
-                                        onChange: onInputChange
+                                        onChange: onInputChange,
+                                        id:'paymentAmount'
                                     }}
                                     options={users}
                                     component={renderField}
@@ -61,8 +62,10 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users,p
                                     required={true}
                                     input={{
                                         name: "receiver_id",
-                                        onChange: onInputChange
+                                        onChange: onInputChange,
+                                        id:'paymentReceiver'
                                     }}
+                                    
                                     options={users}
                                     component={renderField}
                                 />
@@ -80,7 +83,8 @@ const ExternalPaymentForm = ({handleSubmit,onInputChange,calendarChanged,users,p
                                     required={true}
                                     input={{
                                         name: "authorized_by",
-                                        onChange: onInputChange
+                                        onChange: onInputChange,
+                                        id:'paymentAuthorizer'
                                     }}
                                     options={users}
                                     component={renderField}

@@ -2894,14 +2894,6 @@ a:hover {
   box-shadow: none;
 }
 
-.navbar .navbar-form .form-control::-webkit-input-placeholder {
-  opacity: 0.5;
-  color: #25265F;
-  font-family: "Open Sans";
-  font-size: 12px;
-  line-height: 17px;
-}
-
 .navbar .navbar-form .form-control::-moz-placeholder {
   opacity: 0.5;
   color: #25265F;
@@ -2911,14 +2903,6 @@ a:hover {
 }
 
 .navbar .navbar-form .form-control:-ms-input-placeholder {
-  opacity: 0.5;
-  color: #25265F;
-  font-family: "Open Sans";
-  font-size: 12px;
-  line-height: 17px;
-}
-
-.navbar .navbar-form .form-control::-ms-input-placeholder {
   opacity: 0.5;
   color: #25265F;
   font-family: "Open Sans";

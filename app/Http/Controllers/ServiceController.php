@@ -94,6 +94,11 @@ class ServiceController extends Controller
         return response()->json(['invoice' => Invoice::where('service_id', $data['service_id'])->first()]);
     }
 
+    public function getInvoice($serviceId){
+        return response()->json(['invoice' => Invoice::where('service_id', $serviceId)->first()]);
+
+    }
+
     public function getComments($serviceId)
     {
         return response()->json(['comments' => ServiceComments::where('service_id', $serviceId)->orderBy('id', 'desc')->get()->toArray()]);

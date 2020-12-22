@@ -39,7 +39,6 @@ class CreateForm extends Component {
     };
     componentDidMount() {
         const ctx = this;
-        console.log({usuario:this.props.userId})
         this.props.getUser(this.props.userId).then(action => {
             if (action.payload.status === 200) {
                 if (action.payload !== null) {
@@ -47,7 +46,6 @@ class CreateForm extends Component {
                         dataMatrix: { ...action.payload}
                     });
                 }
-                console.log(action.payload)
             }
         });
     }

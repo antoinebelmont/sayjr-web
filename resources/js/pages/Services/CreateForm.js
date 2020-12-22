@@ -98,7 +98,7 @@ class CreateForm extends Component {
                         firstContact: new Date(
                             action.payload.service.first_contact_date
                         ),
-                        serviceDate: new Date(action.payload.service.first_contact_date),
+                        serviceDate: new Date(action.payload.service.service_date),
                         attendedDate: new Date(action.payload.service.attended_date)
                     });
                 }
