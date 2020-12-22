@@ -52,6 +52,12 @@ class Service extends Model
             case 'attended':
                 $status = 'Atendido';
                 break;
+            case 'to_pay':
+                $status = 'Por pagar';
+                break;
+            case 'quoted':
+                $status = 'Cotizado';
+                break;
             case 'finished':
                 $status = 'Terminado';
                 break;
@@ -87,7 +93,7 @@ class Service extends Model
     }
     public function getAccountNameAttribute($val)
     {
-        return $this->account->bank.' $'.$this->account->coverage;
+        return $this->account->bank . ' $' . $this->account->coverage;
     }
     public function receptor()
     {
@@ -103,6 +109,6 @@ class Service extends Model
     }
     public function getAttendantNameAttribute($val)
     {
-        return is_object($this->attendant)?$this->attendant->name:'';
+        return is_object($this->attendant) ? $this->attendant->name : '';
     }
 }
