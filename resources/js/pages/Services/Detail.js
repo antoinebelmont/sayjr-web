@@ -59,6 +59,16 @@ class CreateForm extends Component {
                     });
                 }
             });
+
+        this.props
+        .getServiceComments(this.props.match.params.id)
+        .then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    comments: action.payload.comments
+                });
+            }
+        });
         this.props
             .getInvoice(this.props.match.params.id)
             .then(action => {
