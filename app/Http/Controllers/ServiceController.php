@@ -66,6 +66,14 @@ class ServiceController extends Controller
                     ['id' => 'finished', 'name' => 'Terminado'],
                     ['id' => 'canceled', 'name' => 'Cancelado'],
                     ['id' => 'posponed', 'name' => 'Pospuesto'],
+                    ['id' => 'invoiced','name' => 'Facturado'],
+                    ['id' => 'payed','name' => 'Pagado'],
+                    ['id' => 'user_cost','name' => 'Costo usuario'],
+                    ['id' => 'quote_pending','name' => 'Pendiente cotización'],
+                    ['id' => 'quote_sent','name' => 'Cotización informada'],
+                    ['id' => 'budget_pending','name' => 'Pendiente de presupuesto'],
+                    ['id' => 'cabine_close','name' => 'Cerrar con cabina'],
+                    ['id' => 'warranty','name' => 'Garantía'],
                 ]
             ]
         );

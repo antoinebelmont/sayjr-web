@@ -97,6 +97,12 @@ const DetailCard = props => (
                         </td>
                     </tr>
                     <tr>
+                        <td className="info col-sm-6 col-lg-3">Status</td>
+                        <td className="col-sm-6 col-lg-3">
+                            {props.service.status}
+                        </td>
+                    </tr>
+                    <tr>
                         <td className="info col-sm-6 col-lg-3">Dirección</td>
                         <td className="col-sm-6 col-lg-3" colSpan="3">
                             {props.service.address}
@@ -112,8 +118,8 @@ const DetailCard = props => (
                         <td className="info col-sm-6 col-lg-3" colSpan="4">
                             <GoogleMap
                                 handleDrag={() => {}}
-                                lat={props.service.lat}
-                                lon={props.service.lon}
+                                lat={parseFloat(props.service.lat)}
+                                lon={parseFloat(props.service.lon)}
                                 zoom={18}
                                 draggable={false}
                             />

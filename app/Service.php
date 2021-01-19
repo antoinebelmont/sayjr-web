@@ -67,6 +67,30 @@ class Service extends Model
             case 'posponed':
                 $status = 'Pospuesto';
                 break;
+            case 'invoiced':
+                $status = 'Facturado';
+                break;
+            case 'payed':
+                $status = 'Pagado';
+                break;
+            case 'user_cost':
+                $status = 'Costo usuario';
+                break;
+            case 'quote_pending':
+                $status = 'Pendiente cotización';
+                break;
+            case 'quote_sent':
+                $status = 'Cotización informada';
+                break;
+            case 'budget_pending':
+                $status = 'Pendiente de presupuesto';
+                break;
+            case 'cabine_close':
+                $status = 'Cerrar con cabina';
+                break;
+            case 'warranty':
+                $status = 'Garantía';
+                break;
         }
         return $status;
     }

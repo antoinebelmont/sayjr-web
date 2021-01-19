@@ -92,8 +92,8 @@ class CreateForm extends Component {
                     ctx.setState({
                         formType: "Editar",
                         address: action.payload.service.address,
-                        lat: action.payload.service.latitude,
-                        lon: action.payload.service.longitude,
+                        lat: parseFloat(action.payload.service.latitude),
+                        lon: parseFloat(action.payload.service.longitude),
                         zoom: 18,
                         firstContact: new Date(
                             action.payload.service.first_contact_date
