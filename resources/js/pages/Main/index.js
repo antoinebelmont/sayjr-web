@@ -41,6 +41,7 @@ import UsersEdit from '../Users/Edit';
 import UsersDetail from '../Users/Detail';
 import Tracking from '../Tracking';
 import Reports from '../Reports';
+import Logout from '../Logout';
 
 const Main = ({
     location,
@@ -102,6 +103,7 @@ const Main = ({
                               <Route exact path='/insurance/createcoverage' component={CreateCoverage} />
                               <Route exact path='/insurance/create' component={InsuranceCreate} />
                               <Route exact path='/reports' component={Reports} />
+                              <Route exact path='/logout' component={Logout} />
                         </div>
                     </div>
                 ) : location.pathname != "/login" ? (

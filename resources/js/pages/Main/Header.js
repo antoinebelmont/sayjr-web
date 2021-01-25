@@ -10,6 +10,7 @@ import {
     FormGroup,
     FormControl
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Header = ({ showMobileMenu, toggleMobileNavVisibility }) => (
     <Navbar fluid={true}>
@@ -43,7 +44,7 @@ const Header = ({ showMobileMenu, toggleMobileNavVisibility }) => (
                 </FormGroup>
             </Navbar.Form>
             <Nav pullRight>
-                <NavItem>Log out</NavItem>
+                <Link to="/logout" role='button'>Cerrar Sesión</Link>
             </Nav>
         </Navbar.Collapse>
     </Navbar>

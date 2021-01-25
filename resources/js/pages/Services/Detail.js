@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import {
     getServiceDetail,
     createComment,
@@ -13,7 +13,7 @@ import {
     getInvoice
 } from "stores/actions/services_actions";
 import DetailCard from "./elements/DetailCard";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Navbar } from "react-bootstrap";
 import CommentForm from "./elements/CommentForm";
 import CommentsList from "./elements/CommentsList";
 import PaymentsList from "./elements/PaymentsList";
@@ -246,7 +246,18 @@ class CreateForm extends Component {
                                                 users={this.state.users}
                                             />
                                         </Tab>
-                                        }
+                                }
+
+
+                                <Tab
+                                    eventKey={5}
+                                    title={
+                                        <span>
+                                            <Link to={`/service/edit/${this.state.serviceId}`}>Editar</Link>
+                                        </span>
+                                    }
+                                >
+                                    </Tab>
                             </Tabs>
                         </div>
                     </div>

@@ -70,6 +70,7 @@ class List extends Component{
                   <TableHeaderColumn
                     dataField='client_name'
                     width="14%"
+                    filter={ { type: 'TextFilter'} }
                     dataSort>
                     Cliente
                   </TableHeaderColumn>

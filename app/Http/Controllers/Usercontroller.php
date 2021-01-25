@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use JWTAuthException;
 class UserController extends Controller
@@ -32,6 +34,19 @@ class UserController extends Controller
         }
         return $token;
     }
+
+    public function logout(Request $request){
+        try {
+            Auth::user()
+            ->logout(JWTAuth::getToken());
+            
+        } catch (Exception $e) {
+            return response(['error'=> $e->getMessage()]);
+        }
+
+        return response(['status' => true,'msg' => 'Sesión cerrada'], 401);
+    }
+
     public function login(Request $request)
     {
         $user = \App\User::where('email', $request->email)->get()->first();

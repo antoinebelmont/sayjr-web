@@ -39,6 +39,7 @@ Route::group(['middleware' => ['jwt.auth', 'api-header']], function () {
     Route::post('services/account-coverages','ServiceController@getAccountCoverages');
     Route::resource('services','ServiceController');
     Route::resource('users','UserController');
+    Route::post('user/logout', 'UserController@logout');
 
 
     

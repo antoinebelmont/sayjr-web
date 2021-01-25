@@ -9,7 +9,7 @@ class EditService extends Component {
         this.setState({ serviceId: this.props.match.params.id });
     }
     render() {
-        return <CreateForm serviceId={this.props.match.params.id}/>;
+        return <CreateForm serviceId={this.props.match.params.id} return='detail'/>;
     }
 }
 

@@ -25,3 +25,4 @@ export const GET_REPORT = "GET_REPORT";
 export const USERS_LIST = 'USERS_LIST';
 export const INSURANCES_LIST = 'INSURANCES_LIST';
 export const DELETE_SERVICE = 'DELETE_SERVICE';
+export const LOGOUT = 'LOGOUT';

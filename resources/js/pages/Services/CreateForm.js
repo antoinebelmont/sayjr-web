@@ -9,7 +9,7 @@ import {
     getService
 } from "stores/actions/services_actions";
 import Form from "./Form";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 class CreateForm extends Component {
@@ -63,11 +63,16 @@ class CreateForm extends Component {
         if (ctx.complete === false) {
             alert("faltan campos");
         } else {
-            console.log(this.state.dataMatrix)
             this.props.createService(this.state.dataMatrix).then(action => {
                 if (action.payload.status === 200) {
-                    ctx.props.history.push('/service/list');
-                    ctx.props.history.replace('/service/list');
+                    if(ctx.state.dataMatrix.id != ''){
+                        ctx.props.history.push('/service/detail/'+ctx.state.dataMatrix.id);
+                        ctx.props.history.replace('/service/detail/'+ctx.state.dataMatrix.id);    
+                    }else{
+
+                        ctx.props.history.push('/service/list');
+                        ctx.props.history.replace('/service/list');
+                    }
                 }
             });
         }

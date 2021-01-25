@@ -1,4 +1,4 @@
-import { GET_TOKEN, CHECK_IS_LOGGED, IS_LOADING, SET_TOKEN } from "../types";
+import { GET_TOKEN, CHECK_IS_LOGGED, IS_LOADING, SET_TOKEN,LOGOUT } from "../types";
 import axios from "axios";
 
 export function checkIsLogged(){
@@ -52,5 +52,25 @@ export function getToken(form) {
     return {
         type: GET_TOKEN,
         payload: request
+    }
+}
+
+export function logout(){
+    console.log('entra');
+    const request = axios({
+        url: '/api/user/logout',
+        method: 'POST'
+        
+    }).then(({data})=> {
+        return {status: 401}   
+    }).catch(({ response}) => {
+        return {
+            status: response.status
+        }
+    });
+
+    return {
+        type: LOGOUT,
+        payload:request
     }
 }
