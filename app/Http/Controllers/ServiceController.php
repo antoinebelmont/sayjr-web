@@ -74,6 +74,7 @@ class ServiceController extends Controller
                     ['id' => 'budget_pending','name' => 'Pendiente de presupuesto'],
                     ['id' => 'cabine_close','name' => 'Cerrar con cabina'],
                     ['id' => 'warranty','name' => 'Garantía'],
+                    ['id' => 'in_dispute','name' => 'En disputa'],
                 ]
             ]
         );

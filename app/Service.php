@@ -91,6 +91,9 @@ class Service extends Model
             case 'warranty':
                 $status = 'Garantía';
                 break;
+            case 'in_dispute':
+                $status = 'En disputa';
+                break;
         }
         return $status;
     }
