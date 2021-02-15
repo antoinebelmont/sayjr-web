@@ -12,7 +12,9 @@ import {
     CREATE_INVOICE,
     GET_INVOICE,
     GET_REPORT,
-    DELETE_SERVICE
+    DELETE_SERVICE,
+    CREATE_CLOSENUMBER,
+    GET_CLOSENUMBER
 } from "../types";
 
 import axios from "axios";
@@ -289,6 +291,27 @@ export function createInvoice(data) {
     };
 }
 
+export function createCloseNumber(data) {
+    let url = "/api/services/close-number";
+    let method = 'POST';
+    const request = axios({
+        url,
+        method,
+        data
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: CREATE_CLOSENUMBER,
+        payload: request
+    };
+}
+
 
 
 export function getInvoice(serviceId) {
@@ -305,6 +328,24 @@ export function getInvoice(serviceId) {
 
     return {
         type: GET_INVOICE,
+        payload: request
+    };
+}
+
+export function getCloseNumber(serviceId) {
+    const request = axios({
+        url: `/api/services/close-number/${serviceId}`,
+        method: "GET"
+    })
+        .then(({ data }) => {
+            return { ...data, status: 200 };
+        })
+        .catch(({ response }) => {
+            console.error(response);
+        });
+
+    return {
+        type: GET_CLOSENUMBER,
         payload: request
     };
 }

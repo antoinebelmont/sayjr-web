@@ -10,7 +10,9 @@ import {
     createPayment,
     getServiceExtraPayments,
     createInvoice,
-    getInvoice
+    getInvoice,
+    createCloseNumber,
+    getCloseNumber
 } from "stores/actions/services_actions";
 import DetailCard from "./elements/DetailCard";
 import { Tabs, Tab, Navbar } from "react-bootstrap";
@@ -19,6 +21,7 @@ import CommentsList from "./elements/CommentsList";
 import PaymentsList from "./elements/PaymentsList";
 import ExternalPaymentForm from "./elements/ExternalPaymentForm";
 import InsuranceForm from "./elements/InvoiceForm";
+import CloseNumberForm from "./elements/CloseNumber";
 
 class CreateForm extends Component {
     state = {
@@ -29,7 +32,8 @@ class CreateForm extends Component {
         serviceId: this.props.match.params.id,
         pay_date: new Date(),
         payments: [],
-        invoice: {}
+        invoice: {},
+        closeNumber: {}
     };
     calendarChanged = date => {
         this.setState({ pay_date: date });
@@ -78,8 +82,37 @@ class CreateForm extends Component {
                     });
                 }
             });
+        this.props
+            .getCloseNumber(this.props.match.params.id)
+            .then(action => {
+                if (action.payload.status === 200 && action.payload.invoice !== null) {
+                    ctx.setState({
+                        closeNumber: action.payload.closeNumber
+                    });
+                }
+                console.log(ctx.state.closeNumber)
+            });
             
     }
+
+    handleCloseSubmit = e => {
+        e.preventDefault();
+        let ctx = this;
+        let data = {
+            service_id: this.state.serviceId,
+            close_number: this.state.closing_number,
+            cost: this.state.cost,
+            comments: this.state.closeComment
+        };
+        this.props.createCloseNumber(data).then(action => {
+            if (action.payload.status === 200) {
+                ctx.setState({
+                    closeNumber: action.payload.closeNumber
+                });
+            }
+            console.log(ctx.state.closeNumber);
+        });
+    };
 
     handleInvoiceSubmit = e => {
         e.preventDefault();
@@ -137,6 +170,12 @@ class CreateForm extends Component {
         });
     };
 
+    onCloseInputChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         let ctx = this;
@@ -184,6 +223,7 @@ class CreateForm extends Component {
                                     <DetailCard
                                         service={service}
                                         invoice={this.state.invoice}
+                                        closeNumber={this.state.closeNumber}
                                     />
                                 </Tab>
                                 <Tab
@@ -247,10 +287,21 @@ class CreateForm extends Component {
                                             />
                                         </Tab>
                                 }
-
-
+                                {this.state.closeNumber === null && 
+                                <Tab eventKey={5} title={<span>Cierre</span>}>
+                                    <CloseNumberForm
+                                        handleSubmit={
+                                            this.handleCloseSubmit
+                                        }
+                                        onInputChange={
+                                            this.onCloseInputChange
+                                        }
+                                        users={this.state.users}
+                                    />
+                                </Tab>
+                                }
                                 <Tab
-                                    eventKey={5}
+                                    eventKey={6}
                                     title={
                                         <span>
                                             <Link to={`/service/edit/${this.state.serviceId}`}>Editar</Link>
@@ -280,7 +331,9 @@ function mapActionsToprops(dispatch) {
             createPayment,
             getServiceExtraPayments,
             createInvoice,
-            getInvoice
+            getInvoice,
+            createCloseNumber,
+            getCloseNumber
         },
         dispatch
     );

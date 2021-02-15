@@ -20,7 +20,10 @@ const OPTIONS = [
     "coverage",
     "contact_user",
     "attendant_user",
-    "service_date"
+    "service_date",
+    "status",
+    "close_number",
+    "cost"
 ];
 
 class Report extends Component {
@@ -64,7 +67,10 @@ class Report extends Component {
             coverage: 'Cobertura',
             contact_user: 'Recibe',
             attendant_user: 'Técnico',
-            service_date: 'Cita'
+            service_date: 'Cita',
+            status: 'Estatus',
+            close_number: 'Número de cierre',
+            cost: 'Costo'
         }
     };
     componentDidMount() {}

@@ -81,7 +81,7 @@ const DetailCard = props => (
                             Número de cierre
                         </td>
                         <td className="col-sm-6 col-lg-3">
-                        {props.invoice.closing_number}
+                        {(props.closeNumber !== null)?props.closeNumber.close_number:''}
                         </td>
                     </tr>
                     <tr>

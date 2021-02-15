@@ -34,7 +34,9 @@ Route::group(['middleware' => ['jwt.auth', 'api-header']], function () {
     Route::post('services/comment','ServiceController@createComment');
     Route::post('services/payment','ServiceController@createPayment');
     Route::post('services/invoice','ServiceController@createInvoice');
+    Route::post('services/close-number','ServiceController@createCloseNumber');
     Route::get('services/invoice/{serviceId}','ServiceController@getInvoice');
+    Route::get('services/close-number/{serviceId}','ServiceController@getCloseNumber');
     Route::post('services/report','ServiceController@getReport');
     Route::post('services/account-coverages','ServiceController@getAccountCoverages');
     Route::resource('services','ServiceController');

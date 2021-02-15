@@ -7,6 +7,7 @@ use App\ExtraPay;
 use App\Insurance;
 use App\Invoice;
 use App\Service;
+use App\ServiceClose;
 use App\ServiceComments;
 use App\Type;
 use App\User;
@@ -105,9 +106,22 @@ class ServiceController extends Controller
         return response()->json(['invoice' => Invoice::where('service_id', $data['service_id'])->first()]);
     }
 
+    public function createCloseNumber(Request $request)
+    {
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        ServiceClose::create($data);
+        return response()->json(['closeNumber' => ServiceClose::where('service_id', $data['service_id'])->first()]);
+    }
+
     public function getInvoice($serviceId){
         return response()->json(['invoice' => Invoice::where('service_id', $serviceId)->first()]);
 
+    }
+
+    public function getCloseNumber($serviceId){
+        
+        return response()->json(['closeNumber' => ServiceClose::where('service_id', $serviceId)->first()]);
     }
 
     public function getComments($serviceId)
