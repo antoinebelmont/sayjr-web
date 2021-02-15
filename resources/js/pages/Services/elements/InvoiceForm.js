@@ -17,25 +17,6 @@ const InsuranceForm = ({handleSubmit,onInputChange,users}) => (
 
                         <div className="form-group">
                             <label className="col-sm-3 control-label">
-                                Número de cierre
-                            </label>
-                            <div className="col-sm-9">
-                                <Field
-                                    type="text"
-                                    name="closing_number"
-                                    required={false}
-                                    input={{
-                                        name: "closing_number",
-                                        onChange: onInputChange
-                                    }}
-                                    options={users}
-                                    component={renderField}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="col-sm-3 control-label">
                                 Número de factura
                             </label>
                             <div className="col-sm-9">

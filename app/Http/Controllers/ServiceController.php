@@ -102,6 +102,7 @@ class ServiceController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
+        $data['closing_number'] = 0;
         Invoice::create($data);
         return response()->json(['invoice' => Invoice::where('service_id', $data['service_id'])->first()]);
     }
