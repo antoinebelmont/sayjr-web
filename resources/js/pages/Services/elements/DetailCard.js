@@ -90,11 +90,17 @@ const DetailCard = props => (
                             {props.invoice.comments}
                         </td>
                         <td className="info col-sm-6 col-lg-3">
-                            Facturó
+                            Costo
                         </td>
                         <td className="col-sm-6 col-lg-3">
-                            {props.invoice.user_id}
+                            ${new Intl.NumberFormat("en-US").format(props.closeNumber.cost)}
                         </td>
+                    </tr>
+                    <tr>
+                        <td className="info col-sm-6 col-lg-3">Facturó</td>
+                        <td className="col-sm-6 col-lg-3">{props.invoice.user_id}</td>
+                        <td className="info col-sm-6 col-lg-3">Comentarios de Cierre</td>
+                        <td className="col-sm-6 col-lg-3">{props.closeNumber.comments}</td>
                     </tr>
                     <tr>
                         <td className="info col-sm-6 col-lg-3">Status</td>

@@ -9,12 +9,14 @@ use App\Invoice;
 use App\Service;
 use App\ServiceClose;
 use App\ServiceComments;
+use App\ServiceMultimedia;
 use App\Type;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -105,6 +107,37 @@ class ServiceController extends Controller
         $data['closing_number'] = 0;
         Invoice::create($data);
         return response()->json(['invoice' => Invoice::where('service_id', $data['service_id'])->first()]);
+    }
+
+    public function createMultimedia(Request $request){
+        $data = $request->all();
+
+        $image = $request->get('image');
+        $folder = 'images/'.$data['service_id'];
+        if(!\File::isDirectory($folder)){
+            $response = mkdir(public_path($folder));
+        }
+
+          $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+          \Image::make($request->get('image'))->save(public_path($folder.'/').$name);
+
+        $data['user_id'] = Auth::user()->id;
+        $data['image'] = $name;
+        ServiceMultimedia::create($data);
+        return response()->json($this->getServiceMultimedia($data['service_id']));
+    }
+
+    public function getServiceMultimedia($serviceId)
+    {
+        $folder = 'images/'.$serviceId;
+        return [
+            'images'=> ServiceMultimedia::where('service_id',$serviceId)->where('is_video',0)->get(DB::raw("concat('$folder/',image) image,comments")),
+            'videos' => ServiceMultimedia::where('service_id',$serviceId)->where('is_video',1)->get()
+        ];
+    }
+
+    public function getMultimedia($serviceId){
+        return response()->json($this->getServiceMultimedia($serviceId));
     }
 
     public function createCloseNumber(Request $request)

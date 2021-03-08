@@ -12,7 +12,7 @@ const CommentsList = ({ comments }) => (
                 <Accordion>
                     {comments.map((obj, index) => (
                         <Panel
-                            id={obj.id}
+                            id={index}
                             header={
                                 <span>
                                     {obj.user_id} el {obj.created_at}

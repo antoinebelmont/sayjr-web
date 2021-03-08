@@ -14,7 +14,9 @@ import {
     GET_REPORT,
     DELETE_SERVICE,
     CREATE_CLOSENUMBER,
-    GET_CLOSENUMBER
+    GET_CLOSENUMBER,
+    CREATE_MULTIMEDIA,
+    GET_MULTIMEDIA
 } from "../types";
 
 import axios from "axios";
@@ -348,4 +350,41 @@ export function getCloseNumber(serviceId) {
         type: GET_CLOSENUMBER,
         payload: request
     };
+}
+
+export function createMultimedia(data){
+    const request = axios({
+        url: '/api/services/create-multimedia/',
+        method: 'POST',
+        data
+    })
+        .then((({data})=>{
+            console.log(data);
+            return { ...data,status: 200};
+        }))
+        .catch(({response}) => {
+            console.error(response);
+        });
+        
+    return {
+        type: CREATE_MULTIMEDIA,
+        payload: request
+    }
+}
+
+export function getMultimedia(serviceId){
+    const request = axios({
+        url: `/api/services/get-multimedia/${serviceId}`,
+        method:'GET'
+    })
+    .then(({ data }) =>{
+            return{ ...data,status: 200}
+        })
+        .catch(({ response }) =>{
+            console.error(response)
+        });
+    return {
+        type: GET_MULTIMEDIA,
+        payload: request
+    }
 }

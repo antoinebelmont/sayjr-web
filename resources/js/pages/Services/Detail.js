@@ -22,6 +22,7 @@ import PaymentsList from "./elements/PaymentsList";
 import ExternalPaymentForm from "./elements/ExternalPaymentForm";
 import InsuranceForm from "./elements/InvoiceForm";
 import CloseNumberForm from "./elements/CloseNumber";
+import MultimediaTab from "./elements/MultimediaTab";
 
 class CreateForm extends Component {
     state = {
@@ -287,8 +288,11 @@ class CreateForm extends Component {
                                             />
                                         </Tab>
                                 }
+                                <Tab eventKey={5} title={<span>Multimedia</span>} >
+                                    <MultimediaTab serviceId={this.state.serviceId}/>
+                                </Tab>
                                 {this.state.closeNumber === null && 
-                                <Tab eventKey={5} title={<span>Cierre</span>}>
+                                <Tab eventKey={6} title={<span>Cierre</span>}>
                                     <CloseNumberForm
                                         handleSubmit={
                                             this.handleCloseSubmit
@@ -301,7 +305,7 @@ class CreateForm extends Component {
                                 </Tab>
                                 }
                                 <Tab
-                                    eventKey={6}
+                                    eventKey={7}
                                     title={
                                         <span>
                                             <Link to={`/service/edit/${this.state.serviceId}`}>Editar</Link>

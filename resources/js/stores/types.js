@@ -28,3 +28,6 @@ export const USERS_LIST = 'USERS_LIST';
 export const INSURANCES_LIST = 'INSURANCES_LIST';
 export const DELETE_SERVICE = 'DELETE_SERVICE';
 export const LOGOUT = 'LOGOUT';
+
+export const CREATE_MULTIMEDIA = 'CREATE_MULTIMEDIA';
+export const GET_MULTIMEDIA = 'GET_MULTIMEDIA';
