@@ -34,7 +34,11 @@ class CreateForm extends Component {
         pay_date: new Date(),
         payments: [],
         invoice: {},
-        closeNumber: {}
+        closeNumber: {
+            comments,
+            cost,
+            closeNumber
+        }
     };
     calendarChanged = date => {
         this.setState({ pay_date: date });
