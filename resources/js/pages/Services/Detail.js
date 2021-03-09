@@ -91,7 +91,7 @@ class CreateForm extends Component {
             .getCloseNumber(this.props.match.params.id)
             .then(action => {
                 console.log(action.payload)
-                if (action.payload.status === 200 && action.payload.invoice !== null) {
+                if (action.payload.status === 200 && action.payload.closeNumber !== null) {
                     ctx.setState({
                         closeNumber: action.payload.closeNumber
                     });
