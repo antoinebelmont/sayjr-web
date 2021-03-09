@@ -35,9 +35,9 @@ class CreateForm extends Component {
         payments: [],
         invoice: {},
         closeNumber: {
-            comments,
-            cost,
-            closeNumber
+            comments:'',
+            cost:'',
+            closeNumber:''
         }
     };
     calendarChanged = date => {
