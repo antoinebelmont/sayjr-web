@@ -73,6 +73,7 @@ class CreateForm extends Component {
         .getServiceComments(this.props.match.params.id)
         .then(action => {
             if (action.payload.status === 200) {
+                console.log(action.payload)
                 ctx.setState({
                     comments: action.payload.comments
                 });
