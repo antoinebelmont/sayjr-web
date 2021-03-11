@@ -90,7 +90,6 @@ class CreateForm extends Component {
         this.props
             .getCloseNumber(this.props.match.params.id)
             .then(action => {
-                console.log(action.payload)
                 if (action.payload.status === 200 && action.payload.closeNumber !== null) {
                     ctx.setState({
                         closeNumber: action.payload.closeNumber
@@ -296,7 +295,7 @@ class CreateForm extends Component {
                                 <Tab eventKey={5} title={<span>Multimedia</span>} >
                                     <MultimediaTab serviceId={this.state.serviceId}/>
                                 </Tab>
-                                {this.state.closeNumber === null && 
+                                {this.state.closeNumber.closeNumber === '' && 
                                 <Tab eventKey={6} title={<span>Cierre</span>}>
                                     <CloseNumberForm
                                         handleSubmit={
